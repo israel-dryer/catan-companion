@@ -1,0 +1,24 @@
+@if ($rolls | async; as rolls) {
+
+  <ion-list>
+    <ion-item>
+      <ion-label><strong>#</strong></ion-label>
+      <ion-label color="success"><strong>Total</strong></ion-label>
+      <ion-label><strong>D1</strong></ion-label>
+      <ion-label><strong>D2</strong></ion-label>
+      <ion-label><strong>Player</strong></ion-label>
+    </ion-item>
+
+    <ion-content style="height: calc(100vh - 200px);">
+    @for (roll of rolls; track roll) {
+      <ion-item>
+        <ion-label>{{ roll.roll }}</ion-label>
+        <ion-label color="success">{{ roll.total }}</ion-label>
+        <ion-label>{{ roll.dice1 }}</ion-label>
+        <ion-label>{{ roll.dice2 }}</ion-label>
+        <ion-label>{{ roll.player }}</ion-label>
+      </ion-item>
+    }
+    </ion-content>
+  </ion-list>
+}

@@ -1,0 +1,52 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+}
+.button-row {
+  display: flex;
+  justify-content: space-between;
+  //margin-top: auto;
+}
+
+.next-player {
+  display: flex;
+  flex-direction: column;
+}
+.prev-player {
+  display: flex;
+  flex-direction: column;
+}
+
+.dice-container {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+}
+.dice-total {
+  font-weight: bold;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+@media screen and (orientation: portrait) {
+  .dice-container {
+    flex-direction: column;
+  }
+  .dice-total {
+    font-size: 6vh;
+  }
+}
+
+@media screen and (orientation: landscape) {
+  .dice-total {
+    font-size: 8vw;
+    min-width: 16vw;
+  }
+}

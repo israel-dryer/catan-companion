@@ -1,0 +1,76 @@
+.dice {
+  width: 28vw;
+  height: 28vw;
+  border-radius: 10%;
+  box-sizing: border-box;
+  padding: 6vh
+}
+
+.dot {
+  display: block;
+  width: 7vw;
+  height: 7vw;
+  border-radius: 50%;
+  background-color: var(--ion-background-color);
+}
+
+@media screen and (orientation: portrait) {
+  .dice {
+    width: 34vh;
+    height: 34vh;
+    padding: 2.5vh;
+  }
+  .dot {
+    width: 8.25vh;
+    height: 8.25vh;
+  }
+}
+
+.dice-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.first-face {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.second-face {
+  display: flex;
+  justify-content: space-between;
+}
+.second-face .dot:nth-of-type(2) {
+  align-self: flex-end;
+}
+
+.third-face {
+  display: flex;
+  justify-content: space-between;
+}
+.third-face .dot:nth-of-type(2) {
+  align-self: center;
+}
+.third-face .dot:nth-of-type(3) {
+  align-self: flex-end;
+}
+
+.fourth-face {
+  display: flex;
+  justify-content: space-between;
+}
+
+.fifth-face {
+  display: flex;
+  justify-content: space-between;
+}
+.fifth-face .dice-column:nth-of-type(2) {
+  align-self: center;
+}
+
+.sixth-face {
+  display: flex;
+  justify-content: space-between;
+}

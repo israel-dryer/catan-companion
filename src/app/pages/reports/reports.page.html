@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Reports</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-segment value="chart" #reportSegment>
+    <ion-segment-button value="chart">
+      <ion-label>Chart</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="rolls">
+      <ion-label>Rolls</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  @if ($gameId | async; as gameId) {
+
+    @switch(reportSegment.value) {
+      @case ('chart') {
+        <app-report-histogram [gameId]="gameId"></app-report-histogram>
+      }
+      @case ('rolls') {
+        <app-report-rolls [gameId]="gameId"></app-report-rolls>
+      }
+    }
+  }
+</ion-content>

@@ -1,0 +1,47 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="/settings"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Manage Players</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Manage Players</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list inset>
+    @if ($currentPlayers | async; as currentPlayers) {
+      @for (player of currentPlayers; track player) {
+        <ion-item>
+          <ion-label>{{player.name}}</ion-label>
+          <ion-button fill="clear" color="danger" (click)="removePlayer(player.name)">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-button>
+        </ion-item>
+      }
+    }
+  </ion-list>
+
+  <ion-alert
+    trigger="present-alert"
+    header="New Player"
+    [buttons]="['SUBMIT']"
+    [inputs]="addPlayerInputs"
+    (didDismiss)="addNewPlayer($event)">
+  </ion-alert>
+
+</ion-content>
+
+<ion-footer class="ion-padding">
+  <ion-buttons style="justify-content: space-around">
+    <ion-button color="primary" id="present-alert" expand="block" fill="clear">
+      <ion-icon slot="start" name="person-add"></ion-icon>
+      <ion-label>New Player</ion-label>
+    </ion-button>
+  </ion-buttons>
+</ion-footer>

@@ -1,0 +1,88 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button default-href="/history"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Game Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+@if ($game | async; as game) {
+  <ion-content>
+    <ion-list inset>
+      <ion-item>
+        <ion-label>
+          <ion-note color="medium">Start Date</ion-note>
+          <div>
+            <ion-text>{{ game.id | date : 'medium' }}</ion-text>
+          </div>
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          <ion-note color="medium">Roster</ion-note>
+          <div>
+            <ion-text>{{ game.roster.join(', ') }}</ion-text>
+          </div>
+        </ion-label>
+      </ion-item>
+
+      @if (game.winner) {
+        <ion-item>
+          <ion-label>
+            <ion-note color="medium">Winner</ion-note>
+            <div>
+              <ion-text>{{ game.winner }}</ion-text>
+            </div>
+          </ion-label>
+        </ion-item>
+      }
+
+      @if ($rolls | async; as rolls) {
+        @if (rolls.length > 0) {
+          <ion-item>
+            <ion-label>
+              <ion-note color="medium">End Date</ion-note>
+              <div>
+                <ion-text>{{ rolls.at(-1).timestamp | date : 'medium' }}</ion-text>
+              </div>
+            </ion-label>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>
+              <ion-note color="medium">Duration</ion-note>
+              <div>
+                <ion-text>{{ (rolls.at(-1).timestamp - game.id) / 1000 / 60 | number : '1.2-2' }} minutes</ion-text>
+              </div>
+            </ion-label>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>
+              <ion-note color="medium">Total Rolls</ion-note>
+              <div>
+                <ion-text>{{ rolls.length | number }}</ion-text>
+              </div>
+            </ion-label>
+          </ion-item>
+        }
+
+      }
+    </ion-list>
+
+  </ion-content>
+
+  <ion-footer class="ion-padding">
+    <ion-buttons style="justify-content: space-around;">
+      <ion-button color="danger" (click)="deleteGame(game.id)">Delete</ion-button>
+      @if (!game.winner) {
+        <ion-button color="medium" (click)="continueGame(game)">Continue</ion-button>
+      }
+      <ion-button color="secondary" (click)="showReports(game.id)">Reports</ion-button>
+    </ion-buttons>
+  </ion-footer>
+
+}
+

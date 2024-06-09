@@ -1,0 +1,81 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-back-button icon="close" default-href="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Create Game</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <div>
+    <!--List of Available Players-->
+    @if (roster.length > 0) {
+      <ion-list-header>
+        <ion-label color="medium">Selected players</ion-label>
+      </ion-list-header>
+    }
+    <ion-item>
+      <ion-select labelPlacement="stacked" placeholder="Select players" aria-label="Available Players" (ionChange)="selectAvailablePlayers($event)" multiple>
+        @if ($players | async; as players) {
+          @for (player of $any(players); track player) {
+            <ion-select-option [value]="player.name">{{ player.name }}</ion-select-option>
+          }
+        }
+      </ion-select>
+    </ion-item>
+  </div>
+
+  @if (roster.length) {
+
+    <div>
+      <!--Starting Player Options-->
+      <ion-list-header>
+        <ion-label color="medium">Starting player strategy</ion-label>
+      </ion-list-header>
+      <ion-item>
+        <ion-radio-group [value]="startingOption" (ionChange)="startingOptionChanged($event)" style="width: 100%; padding: .5rem;">
+          <ion-radio value="random">Use Random Player</ion-radio>
+          <ion-radio value="first">First in List</ion-radio>
+        </ion-radio-group>
+      </ion-item>
+    </div>
+
+    <div>
+      <!--Game Roster-->
+      <ion-list-header>
+        <ion-label color="medium">Turn Order</ion-label>
+      </ion-list-header>
+      <ion-reorder-group [disabled]="false" (ionItemReorder)="handlePlayerReorder($event)">
+        @for (player of roster; track player) {
+          <ion-item>
+            <ion-label>{{ player }}</ion-label>
+            <ion-reorder slot="end"></ion-reorder>
+          </ion-item>
+        }
+      </ion-reorder-group>
+    </div>
+
+  }
+
+</ion-content>
+
+<ion-footer style="display: flex;" class="ion-padding">
+  <ion-button expand="block" style="width: 100%" fill="clear" id="present-alert">
+    <ion-icon slot="start" name="person-add"></ion-icon>
+    <ion-label>New Player</ion-label>
+  </ion-button>
+  <ion-button expand="block" style="width: 100%" [disabled]="roster.length === 0" (click)="startGame()">
+    <ion-icon slot="start" name="dice"></ion-icon>
+    <ion-label>Start Game</ion-label>
+  </ion-button>
+</ion-footer>
+
+<ion-alert
+  trigger="present-alert"
+  header="New Player"
+  [buttons]="['SUBMIT']"
+  [inputs]="createPlayerInputs"
+  (didDismiss)="addPlayer($event)">
+</ion-alert>

@@ -1,0 +1,44 @@
+<ion-content class="ion-padding" fullscreen>
+  <div class="container">
+
+    <div class="header-row">
+      <div class="next-player ion-text-uppercase">
+        <ion-note class="ion-text-uppercase">Next</ion-note>
+        <ion-text style="font-size: 1.4rem" color="warning">{{playService.currPlayer}}</ion-text>
+      </div>
+      <div class="prev-player ion-text-end ion-text-uppercase">
+        <ion-note>Prev</ion-note>
+        @if (activeGame?.rolls?.length) {
+          <ion-text style="font-size: 1.4rem">{{playService.prevPlayer}}</ion-text>
+        }
+      </div>
+    </div>
+
+    <div class="dice-container" (click)="rollDice()">
+      <app-dice [number]="lastRoll?.dice1" color="red" [@jiggleRed]="isRolling ? 'active' : ''"></app-dice>
+      <div class="dice-total">
+      @if ($showDiceTotal | async) {
+        @if (isRolling) {
+          <span>&nbsp;&nbsp;</span>
+        } @else {
+          {{'&nbsp;' + (activeGame?.rolls?.length && lastRoll?.total !== 0) ? lastRoll?.total : ' ' + ' &nbsp;'}}
+        }
+      }
+        </div>
+
+      <app-dice [number]="lastRoll?.dice2" color="gold" [@jiggleGold]="isRolling ? 'active' : ''"></app-dice>
+    </div>
+
+    <div class="button-row">
+      <ion-button fill="clear" color="medium" [routerLink]="['/reports', activeGame?.id]" size="large">
+        <ion-icon slot="icon-only" name="bar-chart"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" color="medium" id="present-settings" size="large">
+        <ion-icon slot="icon-only" name="settings"></ion-icon>
+      </ion-button>
+    </div>
+  </div>
+
+  <ion-action-sheet (didDismiss)="closeActionSheet($event)" trigger="present-settings" [buttons]="actionSheetButtons"></ion-action-sheet>
+
+</ion-content>

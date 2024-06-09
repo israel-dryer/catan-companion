@@ -1,0 +1,14 @@
+<div class="chart-container">
+  <div style="height: 100%;"></div>
+
+  @if ($chartData | async; as data) {
+
+    @for(col of data.rolls; track col) {
+      <div class="chart-bar">
+        <div class="bar-line" [ngStyle]="{height: data.highestRoll === 0 ? 0 : ((col / data.highestRoll)*100).toString() + '%'}"></div>
+        <ion-text class="bar-value" color="primary">{{col}}</ion-text>
+        <div class="bar-label">{{$index + 2}}</div>
+      </div>
+    }
+  }
+</div>

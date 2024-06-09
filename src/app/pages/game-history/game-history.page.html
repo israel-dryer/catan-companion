@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Game History</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-list inset>
+    @if ($games | async; as games) {
+
+      @if (games.length === 0) {
+        <ion-item>
+          <ion-label>No games available</ion-label>
+        </ion-item>
+      }
+
+      @for (game of games; track game) {
+        <ion-item [routerLink]="['/', 'history', game.id]">
+          <ion-label>
+            <ion-text>{{ game.id | date : 'medium' }}</ion-text><br>
+            <ion-note>{{ game.roster.join(', ')}}</ion-note>
+            </ion-label>
+            <ion-text color="secondary" slot="end">
+              {{game.winner}}
+            </ion-text>
+        </ion-item>
+      }
+    }
+
+  </ion-list>
+
+</ion-content>

@@ -1,0 +1,55 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Purge Game Data</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Purge Game Data</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list inset>
+    @if ($games | async; as games) {
+      @for (game of games; track game) {
+        <ion-item>
+          <ion-checkbox color="danger" [value]="game.id">
+            <ion-label>
+              <h2>
+                @if (game.winner) {
+                  <ion-icon name="trophy" color="success" style="margin-right: .5rem; align-self: center;"></ion-icon>
+                }
+                {{ game.id | date :'medium' }}
+              </h2>
+              <ion-note color="medium">{{ game.roster.join(', ') }}</ion-note>
+
+            </ion-label>
+          </ion-checkbox>
+        </ion-item>
+      }
+      @if (games.length === 0) {
+        <ion-item>
+          <ion-label>No games available</ion-label>
+        </ion-item>
+      }
+    }
+  </ion-list>
+</ion-content>
+
+@if ($games | async; as games) {
+  <ion-footer class="ion-padding" style="display: flex;">
+    <ion-button style="width: 100%;" color="danger" expand="block" fill="clear" [disabled]="!games.length" (click)="toggleAllRecords()">
+      @if (isAllToggled) {
+        <ion-label>Unselect All</ion-label>
+      } @else {
+        <ion-label>Select All</ion-label>
+      }
+    </ion-button>
+    <ion-button style="width: 100%;" color="danger" expand="block" [disabled]="!games.length" (click)="deleteGames()">Delete</ion-button>
+  </ion-footer>
+}

@@ -1,9 +1,9 @@
 <ion-content [fullscreen]="true">
-  <div id="landing-container" class="ion-text-center">
+  <div class="ion-text-center landing-container">
 
-    <div id="landing-text">
-      <div id="title-row">
-        <ion-text>
+    <div class="landing-text">
+      <div class="title-row">
+        <ion-text color="warning">
           <h1>Catan</h1>
         </ion-text>
       </div>
@@ -12,17 +12,15 @@
       </ion-text>
     </div>
 
-    <div id="dice">
+    <div class="dice">
       <img src="assets/icon/logo.png" alt="dice logo">
-<!--      <ion-icon name="dice-outline" size="large" color="warning"></ion-icon>-->
-<!--      <ion-icon name="dice-outline" size="large" color="danger"></ion-icon>-->
     </div>
 
-    <div id="landing-buttons">
-      <ion-button color="primary" shape="round" expand="block" size="large" href="select-players">
+    <div class="landing-buttons">
+      <ion-button size="large" color="warning" shape="round" expand="block" href="select-players">
         Play
       </ion-button>
-      <ion-button size="large" fill="clear" expand="block" shape="round" id="settings">
+      <ion-button size="large" color="warning" fill="clear" expand="block" shape="round" id="settings">
         Options
       </ion-button>
     </div>

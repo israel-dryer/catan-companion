@@ -57,7 +57,7 @@ export class AudioService implements OnDestroy {
       text: result.toString(),
       rate: 0.7,
       voice: this.speechVoice ?? 0,
-      lang: navigator.language}).then();
+      lang: navigator.language}).then().catch(e => console.warn(e));
  }
 
 }

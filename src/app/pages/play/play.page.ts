@@ -4,10 +4,10 @@ import {KeepAwake} from "@capacitor-community/keep-awake";
 import {
   IonActionSheet,
   IonButton,
-  IonContent,
+  IonContent, IonFooter, IonHeader,
   IonIcon,
   IonNote,
-  IonText,
+  IonText, IonToolbar,
   ViewWillEnter, ViewWillLeave
 } from '@ionic/angular/standalone';
 import {DiceComponent} from "../../shared/dice/dice.component";
@@ -17,6 +17,7 @@ import {Router, RouterLink} from "@angular/router";
 import {SettingService} from "../../services/setting.service";
 import {liveQuery} from "dexie";
 import {animate, keyframes, state, style, transition, trigger} from "@angular/animations";
+import {ActionDiceComponent} from "../../shared/action-dice/action-dice.component";
 
 const ROLL_DURATION = 750;
 
@@ -34,7 +35,11 @@ const ROLL_DURATION = 750;
     IonButton,
     RouterLink,
     IonIcon,
-    IonActionSheet
+    IonActionSheet,
+    ActionDiceComponent,
+    IonFooter,
+    IonHeader,
+    IonToolbar
   ],
   animations: [
     trigger('jiggleRed', [

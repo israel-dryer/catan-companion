@@ -35,7 +35,8 @@ export interface Game {
   winner?: string;
   roster: string[];
   rolls: Roll[];
-  turnIndex: number
+  turnIndex: number,
+  citiesAndKnights: boolean
 }
 
 export interface Roll {
@@ -43,6 +44,7 @@ export interface Roll {
   dice1: number;
   dice2: number;
   total: number;
+  action?: string;
   player: string;
   timestamp: number;
 }
@@ -87,7 +89,7 @@ export class AppDb extends Dexie {
       {id: 'showDiceTotal', value: true},
       {id: 'speechAvailable', value: false},
       {id: 'speechEnabled', value: false},
-      {id: 'speechVoice', value: {name: 'Default', index: 0}}
+      {id: 'speechVoice', value: {name: 'Default', index: 0}},
     ]);
   }
 

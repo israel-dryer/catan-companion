@@ -1,23 +1,23 @@
 import {Component, inject} from '@angular/core';
 import {AsyncPipe} from '@angular/common';
 import {
-    IonAlert, IonBackButton,
-    IonButton, IonButtons,
-    IonContent,
-    IonFooter,
-    IonHeader,
-    IonIcon,
-    IonItem,
-    IonLabel,
-    IonListHeader,
-    IonRadio,
-    IonRadioGroup,
-    IonReorder,
-    IonReorderGroup,
-    IonSelect,
-    IonSelectOption,
-    IonTitle,
-    IonToolbar
+  IonAlert, IonBackButton,
+  IonButton, IonButtons,
+  IonContent,
+  IonFooter,
+  IonHeader,
+  IonIcon,
+  IonItem,
+  IonLabel,
+  IonListHeader, IonNote,
+  IonRadio,
+  IonRadioGroup,
+  IonReorder,
+  IonReorderGroup,
+  IonSelect,
+  IonSelectOption,
+  IonTitle, IonToggle,
+  IonToolbar
 } from '@ionic/angular/standalone';
 import {PlayerService} from "../../services/player.service";
 import {PlayService} from "../../services/play.service";
@@ -48,13 +48,16 @@ import {liveQuery} from "dexie";
     IonFooter,
     IonButton,
     IonIcon,
-    IonAlert
+    IonAlert,
+    IonNote,
+    IonToggle
   ]
 })
 export class SelectPlayersPage {
 
   roster: string[] = [];
   startingOption: 'random' | 'first' = 'random';
+  citiesAndKnights = false;
 
   private playerService = inject(PlayerService);
   private playService = inject(PlayService);
@@ -103,9 +106,14 @@ export class SelectPlayersPage {
       id: Date.now(),
       roster: this.roster,
       rolls: [],
-      turnIndex
+      turnIndex,
+      citiesAndKnights: this.citiesAndKnights
     };
     return this.playService.startGame(game);
+  }
+
+  toggleCitiesAndKnights = ({detail}: any) => {
+    this.citiesAndKnights = detail.checked;
   }
 
 }

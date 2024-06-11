@@ -28,9 +28,9 @@
   </ion-list>
 
   <ion-alert
-    trigger="present-alert"
+    trigger="add-new-player"
     header="New Player"
-    [buttons]="['SUBMIT']"
+    [buttons]="['Submit']"
     [inputs]="addPlayerInputs"
     (didDismiss)="addNewPlayer($event)">
   </ion-alert>
@@ -39,7 +39,7 @@
 
 <ion-footer class="ion-padding">
   <ion-buttons style="justify-content: space-around">
-    <ion-button color="primary" id="present-alert" expand="block" fill="clear">
+    <ion-button color="success" id="add-new-player" expand="block" fill="clear">
       <ion-icon slot="start" name="person-add"></ion-icon>
       <ion-label>New Player</ion-label>
     </ion-button>

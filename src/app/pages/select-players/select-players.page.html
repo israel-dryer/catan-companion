@@ -30,19 +30,6 @@
   @if (roster.length) {
 
     <div>
-      <!--Starting Player Options-->
-      <ion-list-header>
-        <ion-label color="medium">Starting player strategy</ion-label>
-      </ion-list-header>
-      <ion-item>
-        <ion-radio-group [value]="startingOption" (ionChange)="startingOptionChanged($event)" style="width: 100%; padding: .5rem;">
-          <ion-radio value="random">Use Random Player</ion-radio>
-          <ion-radio value="first">First in List</ion-radio>
-        </ion-radio-group>
-      </ion-item>
-    </div>
-
-    <div>
       <!--Game Roster-->
       <ion-list-header>
         <ion-label color="medium">Turn Order</ion-label>
@@ -57,16 +44,38 @@
       </ion-reorder-group>
     </div>
 
+    <div>
+      <!--Starting Player Options-->
+      <ion-list-header>
+        <ion-label color="medium">Starting player strategy</ion-label>
+      </ion-list-header>
+      <ion-item>
+        <ion-radio-group [value]="startingOption" (ionChange)="startingOptionChanged($event)" style="width: 100%; padding: .5rem;">
+          <ion-radio color="warning" value="random">Use Random Player</ion-radio>
+          <ion-radio color="warning" value="first">First in List</ion-radio>
+        </ion-radio-group>
+      </ion-item>
+    </div>
+
+    <ion-list-header>
+      <ion-label color="medium">Expansion Packs</ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-toggle color="warning" [checked]="citiesAndKnights" (ionChange)="toggleCitiesAndKnights($event)">
+        <ion-label>Cities and Knights Expansion</ion-label>
+      </ion-toggle>
+    </ion-item>
+
   }
 
 </ion-content>
 
 <ion-footer style="display: flex;" class="ion-padding">
-  <ion-button expand="block" style="width: 100%" fill="clear" id="present-alert">
+  <ion-button color="warning" expand="block" style="width: 100%" fill="clear" id="present-alert">
     <ion-icon slot="start" name="person-add"></ion-icon>
     <ion-label>New Player</ion-label>
   </ion-button>
-  <ion-button expand="block" style="width: 100%" [disabled]="roster.length === 0" (click)="startGame()">
+  <ion-button color="warning" expand="block" style="width: 100%" [disabled]="roster.length === 0" (click)="startGame()">
     <ion-icon slot="start" name="dice"></ion-icon>
     <ion-label>Start Game</ion-label>
   </ion-button>

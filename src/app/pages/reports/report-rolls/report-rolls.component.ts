@@ -27,9 +27,9 @@ export class ReportRollsComponent {
   $rolls = from(liveQuery(() => this.gameService.selectGame(this.gameId))).pipe(
     map(game => {
       const rolls = game?.rolls ?? [];
-      const tableData: {roll: number, total: number, dice1: number, dice2: number, player: string}[] = [];
+      const tableData: {roll: number, total: number, dice1: number, dice2: number, action?: string, player: string}[] = [];
       rolls.forEach((roll, index, _) => {
-        tableData.push({roll: index + 1, total: roll.total, dice1: roll.dice1, dice2: roll.dice2, player: roll.player});
+        tableData.push({roll: index + 1, total: roll.total, dice1: roll.dice1, dice2: roll.dice2, action: roll.action, player: roll.player});
       });
       tableData.sort((a, b) => b.roll - a.roll);
       return tableData;

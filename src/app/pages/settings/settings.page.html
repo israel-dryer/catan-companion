@@ -16,32 +16,32 @@
 
   <ion-list inset>
     <ion-item>
-      <ion-toggle [checked]="$rollingDiceSoundEnabled | async" (ionChange)="toggleRollingDiceSound($event)">
+      <ion-toggle color="success" [checked]="$rollingDiceSoundEnabled | async" (ionChange)="toggleRollingDiceSound($event)">
         <ion-label>Rolling Dice Sound</ion-label>
         <ion-note>Sound effect for rolling dice</ion-note>
       </ion-toggle>
     </ion-item>
     <ion-item>
-      <ion-toggle [checked]="$robberLaughSoundEnabled | async" (ionChange)="toggleRobberLaughSound($event)">
+      <ion-toggle color="success" [checked]="$robberLaughSoundEnabled | async" (ionChange)="toggleRobberLaughSound($event)">
         <ion-label>Robber Laugh Sound</ion-label>
         <ion-note>Sound effect when 7 is rolled</ion-note>
       </ion-toggle>
     </ion-item>
     <ion-item>
-      <ion-toggle [checked]="$showDiceTotal | async" (ionChange)="toggleDiceTotal($event)">
+      <ion-toggle color="success" [checked]="$showDiceTotal | async" (ionChange)="toggleDiceTotal($event)">
         <ion-label>Show Dice Total</ion-label>
         <ion-note>Display sum of dice</ion-note>
       </ion-toggle>
     </ion-item>
     <ion-item>
-      <ion-toggle [checked]="$hapticsEnabled | async" (ionChange)="toggleHaptics($event)">
+      <ion-toggle color="success" [checked]="$hapticsEnabled | async" (ionChange)="toggleHaptics($event)">
         <ion-label>Enable Haptics</ion-label>
         <ion-note>Vibrate device on dice roll</ion-note>
       </ion-toggle>
     </ion-item>
     @if ($speechAvailable | async) {
       <ion-item>
-        <ion-toggle [checked]="$speechEnabled | async" (ionChange)="toggleAnnounceDiceRoll($event)">
+        <ion-toggle color="success" [checked]="$speechEnabled | async" (ionChange)="toggleAnnounceDiceRoll($event)">
           <ion-label>Speak Dice Total</ion-label>
           <ion-note>Speak sum of the dice roll</ion-note>
         </ion-toggle>

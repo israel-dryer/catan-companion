@@ -1,61 +1,47 @@
 @switch (number) {
   @case (1) {
-    <div class="dice first-face" [ngStyle]="{backgroundColor: dieColor}">
-      <div class="dot"></div>
+    <div class="dice" [ngStyle]="{backgroundColor: dieColor}">
+      <div class="dot" style="grid-row: 2; grid-column: 2;"></div>
     </div>
   }
   @case (2) {
-    <div class="dice second-face" [ngStyle]="{backgroundColor: dieColor}">
-      <div class="dot"></div>
-      <div class="dot"></div>
+    <div class="dice" [ngStyle]="{backgroundColor: dieColor}">
+      <div class="dot" style="grid-row: 1; grid-column: 1;"></div>
+      <div class="dot" style="grid-row: 3; grid-column: 3;"></div>
     </div>
   }
   @case (3) {
-    <div class="dice third-face" [ngStyle]="{backgroundColor: dieColor}">
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
+    <div class="dice" [ngStyle]="{backgroundColor: dieColor}">
+      <div class="dot" style="grid-row: 1; grid-column: 1;"></div>
+      <div class="dot" style="grid-row: 2; grid-column: 2"></div>
+      <div class="dot" style="grid-row: 3; grid-column: 3;"></div>
     </div>
   }
   @case (4) {
-    <div class="dice fourth-face" [ngStyle]="{backgroundColor: dieColor}">
-      <div class="dice-column">
-        <div class="dot"></div>
-        <div class="dot"></div>
-      </div>
-      <div class="dice-column">
-        <div class="dot"></div>
-        <div class="dot"></div>
-      </div>
+    <div class="dice" [ngStyle]="{backgroundColor: dieColor}">
+      <div class="dot" style="grid-row: 1; grid-column: 1;"></div>
+      <div class="dot" style="grid-row: 1; grid-column: 3"></div>
+      <div class="dot" style="grid-row: 3; grid-column: 1;"></div>
+      <div class="dot" style="grid-row: 3; grid-column: 3;"></div>
     </div>
   }
   @case (5) {
-    <div class="dice fifth-face" [ngStyle]="{backgroundColor: dieColor}">
-      <div class="dice-column">
-        <div class="dot"></div>
-        <div class="dot"></div>
-      </div>
-      <div class="dice-column">
-        <div class="dot"></div>
-      </div>
-      <div class="dice-column">
-        <div class="dot"></div>
-        <div class="dot"></div>
-      </div>
+    <div class="dice" [ngStyle]="{backgroundColor: dieColor}">
+        <div class="dot" style="grid-row: 1; grid-column: 1;"></div>
+        <div class="dot" style="grid-row: 1; grid-column: 3"></div>
+        <div class="dot" style="grid-row: 2; grid-column: 2;"></div>
+        <div class="dot" style="grid-row: 3; grid-column: 1;"></div>
+        <div class="dot" style="grid-row: 3; grid-column: 3;"></div>
     </div>
   }
   @case (6) {
-    <div class="dice sixth-face" [ngStyle]="{backgroundColor: dieColor}">
-      <div class="dice-column">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-      </div>
-      <div class="dice-column">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-      </div>
+    <div class="dice" [ngStyle]="{backgroundColor: dieColor}">
+      <div class="dot" style="grid-row: 1; grid-column: 1;"></div>
+      <div class="dot" style="grid-row: 1; grid-column: 3"></div>
+      <div class="dot" style="grid-row: 2; grid-column: 1;"></div>
+      <div class="dot" style="grid-row: 2; grid-column: 3;"></div>
+      <div class="dot" style="grid-row: 3; grid-column: 1;"></div>
+      <div class="dot" style="grid-row: 3; grid-column: 3;"></div>
     </div>
   }
   @default {

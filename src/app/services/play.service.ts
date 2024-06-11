@@ -53,14 +53,6 @@ export class PlayService implements OnDestroy {
     return
   }
 
-  get nextPlayer() {
-    if (this.activeGame) {
-      const index = this.nextTurnIndex();
-      return this.activeGame.roster[index];
-    }
-    return '';
-  }
-
   get currPlayer() {
     if (this.activeGame) {
       return this.activeGame.roster[this.activeGame.turnIndex];
@@ -89,6 +81,7 @@ export class PlayService implements OnDestroy {
     }
     const dice1 = Math.floor(Math.random() * 6) + 1;
     const dice2 = Math.floor(Math.random() * 6) + 1;
+    const action = this.activeGame?.citiesAndKnights ? this.getCitiesAndKnightsActivity() : undefined;
     const total = dice1 + dice2;
 
     await this.audioService.playDiceSound();
@@ -99,8 +92,9 @@ export class PlayService implements OnDestroy {
         dice1,
         dice2,
         total,
+        action,
         player: this.currPlayer,
-        timestamp: Date.now()
+        timestamp: Date.now(),
       });
       this.activeGame.turnIndex = this.nextTurnIndex();
       this.gameService.updateGame(this.activeGame);
@@ -116,6 +110,12 @@ export class PlayService implements OnDestroy {
       }
     }
     return {dice1, dice2, total};
+  }
+
+  getCitiesAndKnightsActivity() {
+    const options = ['BAR', 'GLD', 'BAR', 'BLU', 'BAR', 'GRN'];
+    const index = Math.floor(Math.random() * options.length);
+    return options[index];
   }
 
   async undoLastRoll() {
@@ -149,8 +149,8 @@ export class PlayService implements OnDestroy {
     const index = game.turnIndex;
     const alert = await this.alertController.create({
       header: "Place Settlements",
-      message: game.roster[index].toUpperCase() + " is first. Click START GAME when all players have placed their settlements",
-      buttons: ["Start Game"]
+      message: game.roster[index].toUpperCase() + " is first. Click START when all players have placed their settlements",
+      buttons: ["Start"]
     });
     return alert.present();
   }

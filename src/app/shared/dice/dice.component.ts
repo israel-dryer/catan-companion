@@ -29,9 +29,5 @@ export class DiceComponent implements AfterViewInit {
     return this.color === 'red' ? this.red : this.gold;
   }
 
-  get dotColor() {
-    return this.color === 'red' ? this.gold : this.red;
-  }
-
 
 }

@@ -39,6 +39,14 @@
         </ion-item>
       }
 
+      @if (game.citiesAndKnights) {
+        <ion-item>
+          <ion-label>
+              <ion-text>Cities and Knights Expansion</ion-text>
+          </ion-label>
+        </ion-item>
+      }
+
       @if ($rolls | async; as rolls) {
         @if (rolls.length > 0) {
           <ion-item>

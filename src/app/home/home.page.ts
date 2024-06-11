@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {
   IonHeader,
   IonToolbar,
@@ -7,13 +7,12 @@ import {
   IonButton,
   IonText,
   IonFab,
-  IonFabButton, IonIcon, IonActionSheet, IonFabList, Platform
+  IonFabButton, IonIcon, IonActionSheet, IonFabList
 } from '@ionic/angular/standalone';
 import {PlayerService} from "../services/player.service";
 import {SettingService} from "../services/setting.service";
 import {GameService} from "../services/game.service";
 import {Router, RouterLink} from "@angular/router";
-import {TextToSpeech} from "@capacitor-community/text-to-speech";
 
 @Component({
   selector: 'app-home',
@@ -25,14 +24,8 @@ import {TextToSpeech} from "@capacitor-community/text-to-speech";
 })
 export class HomePage {
 
-  private platform = inject(Platform);
   private router = inject(Router);
   message = '';
-
-
-  get isLandscape() {
-    return this.platform.isLandscape();
-  }
 
   actionSheetButtons = [
     {

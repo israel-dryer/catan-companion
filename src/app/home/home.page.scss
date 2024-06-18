@@ -18,26 +18,19 @@ h3 {
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-columns: 1fr;
-  height: 100vh;
+  height: 100svh;
   width: 100%;
   padding: 2rem;
   overflow: hidden;
 }
 
 .landing-container::before {
-  content: url('/assets/catan-background.jpg');
+  content: url('/assets/catan-background.webp');
   position: absolute;
   left: 0;
   top: 0;
   opacity: 0.4;
 }
-
-.dice {
-  display: none;
-  grid-row: 1;
-  align-self: end;
-}
-
 
 .landing-text {
   grid-row: 1;
@@ -46,7 +39,7 @@ h3 {
 }
 
 .dice > img {
-  width: 50vw;
+  width: 50svw;
   height: auto;
 }
 

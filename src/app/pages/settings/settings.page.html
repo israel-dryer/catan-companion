@@ -16,13 +16,15 @@
 
   <ion-list inset>
     <ion-item>
-      <ion-toggle color="success" [checked]="$rollingDiceSoundEnabled | async" (ionChange)="toggleRollingDiceSound($event)">
+      <ion-toggle color="success" [checked]="$rollingDiceSoundEnabled | async"
+                  (ionChange)="toggleRollingDiceSound($event)">
         <ion-label>Rolling Dice Sound</ion-label>
         <ion-note>Sound effect for rolling dice</ion-note>
       </ion-toggle>
     </ion-item>
     <ion-item>
-      <ion-toggle color="success" [checked]="$robberLaughSoundEnabled | async" (ionChange)="toggleRobberLaughSound($event)">
+      <ion-toggle color="success" [checked]="$robberLaughSoundEnabled | async"
+                  (ionChange)="toggleRobberLaughSound($event)">
         <ion-label>Robber Laugh Sound</ion-label>
         <ion-note>Sound effect when 7 is rolled</ion-note>
       </ion-toggle>
@@ -40,20 +42,23 @@
       </ion-toggle>
     </ion-item>
     @if ($speechAvailable | async) {
-      <ion-item>
-        <ion-toggle color="success" [checked]="$speechEnabled | async" (ionChange)="toggleAnnounceDiceRoll($event)">
-          <ion-label>Speak Dice Total</ion-label>
-          <ion-note>Speak sum of the dice roll</ion-note>
-        </ion-toggle>
-      </ion-item>
-      @if ($speechEnabled | async) {
+      @if (availableVoices.length > 0) {
         <ion-item>
-          <ion-select label="Selected Voice" labelPlacement="floating" (ionChange)="updateSelectedVoice($event)" [value]="$selectedVoice | async">
-            @for (voice of availableVoices; track voice) {
-              <ion-select-option [value]="voice">{{voice}}</ion-select-option>
-            }
-          </ion-select>
+          <ion-toggle color="success" [checked]="$speechEnabled | async" (ionChange)="toggleAnnounceDiceRoll($event)">
+            <ion-label>Speak Dice Total</ion-label>
+            <ion-note>Speak sum of the dice roll</ion-note>
+          </ion-toggle>
         </ion-item>
+        @if ($speechEnabled | async) {
+          <ion-item>
+            <ion-select label="Selected Voice" labelPlacement="floating" (ionChange)="updateSelectedVoice($event)"
+                        [value]="$selectedVoice | async">
+              @for (voice of availableVoices; track voice) {
+                <ion-select-option [value]="voice">{{ voice }}</ion-select-option>
+              }
+            </ion-select>
+          </ion-item>
+        }
       }
     }
   </ion-list>
@@ -73,7 +78,7 @@
       <ion-icon name="person-add" slot="start"></ion-icon>
       <ion-label>
         <h2>Manage Players</h2>
-        <ion-note >Add or remove players</ion-note>
+        <ion-note>Add or remove players</ion-note>
       </ion-label>
     </ion-item>
 
@@ -105,3 +110,10 @@
   </ion-list>
 
 </ion-content>
+
+<ion-footer class="ion-padding ion-text-center">
+  <ion-label>
+    <h2>Catan Companion v{{APP_VERSION}}</h2>
+    <ion-note>&copy; 2024 Israel Dryer</ion-note>
+  </ion-label>
+</ion-footer>

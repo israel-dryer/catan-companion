@@ -3,7 +3,7 @@ import {AsyncPipe, KeyValuePipe} from '@angular/common';
 import {
   IonBackButton,
   IonButtons,
-  IonContent,
+  IonContent, IonFooter,
   IonHeader,
   IonIcon,
   IonItem,
@@ -27,6 +27,8 @@ import {StorageService} from "../../services/storage.service";
 import {Device} from "@capacitor/device";
 import {Share} from "@capacitor/share";
 import {from, map} from "rxjs";
+import {APP_VERSION} from "../../../main";
+
 
 @Component({
   selector: 'app-settings',
@@ -52,7 +54,8 @@ import {from, map} from "rxjs";
     IonSelectOption,
     KeyValuePipe,
     IonItemGroup,
-    IonItemDivider
+    IonItemDivider,
+    IonFooter
   ]
 })
 export class SettingsPage implements OnInit {
@@ -145,6 +148,5 @@ export class SettingsPage implements OnInit {
   }
 
 
-
-
+  protected readonly APP_VERSION = APP_VERSION;
 }

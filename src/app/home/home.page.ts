@@ -1,13 +1,9 @@
 import {Component, inject} from '@angular/core';
 import {
-  IonHeader,
-  IonToolbar,
-  IonTitle,
   IonContent,
   IonButton,
   IonText,
-  IonFab,
-  IonFabButton, IonIcon, IonActionSheet, IonFabList
+  IonActionSheet
 } from '@ionic/angular/standalone';
 import {PlayerService} from "../services/player.service";
 import {SettingService} from "../services/setting.service";
@@ -20,7 +16,13 @@ import {Router, RouterLink} from "@angular/router";
   styleUrls: ['home.page.scss'],
   providers: [PlayerService, SettingService, GameService],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonText, IonFab, IonFabButton, IonIcon, IonActionSheet, RouterLink, IonFabList],
+  imports: [
+    IonContent,
+    IonText,
+    IonButton,
+    RouterLink,
+    IonActionSheet
+  ],
 })
 export class HomePage {
 

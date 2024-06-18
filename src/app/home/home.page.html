@@ -12,12 +12,8 @@
       </ion-text>
     </div>
 
-    <div class="dice">
-      <img src="/assets/icon/logo.png" alt="dice logo">
-    </div>
-
     <div class="landing-buttons">
-      <ion-button size="large" color="warning" shape="round" expand="block" href="/select-players">
+      <ion-button size="large" color="warning" shape="round" expand="block" [routerLink]="['/', 'select-players']">
         Play
       </ion-button>
       <ion-button size="large" color="warning" fill="clear" expand="block" shape="round" id="settings">

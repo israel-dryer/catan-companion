@@ -1,15 +1,17 @@
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import Dexie, {Table} from "dexie";
+import {Platform} from "@ionic/angular";
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
 
-  db: AppDb;
+  private platform = inject(Platform);
+  db!: AppDb;
 
   constructor() {
-    this.db = new AppDb()
+    this.platform.ready().then(() => this.db = new AppDb());
   }
 
   get games() {

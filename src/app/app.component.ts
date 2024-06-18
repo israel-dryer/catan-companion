@@ -12,7 +12,16 @@ import {
   list,
   trophy,
   trash,
-  document, cloudUpload, refresh, add, diceOutline, download, shareSocial, options, timer
+  document,
+  cloudUpload,
+  refresh,
+  add,
+  diceOutline,
+  download,
+  shareSocial,
+  options,
+  timer,
+  flask, boatOutline, skull, business, businessOutline, skullOutline
 } from "ionicons/icons";
 
 @Component({
@@ -26,7 +35,7 @@ export class AppComponent {
     addIcons({
       peopleCircleOutline, personAdd, dice, close, settings, barChart,
       arrowUndo, list, trophy, trash, document, cloudUpload, refresh, add,
-      download,
+      download, flask, boatOutline, skull, business, skullOutline, businessOutline,
       diceOutline, shareSocial, options, timer});
   }
 }

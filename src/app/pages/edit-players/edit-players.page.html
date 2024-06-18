@@ -16,14 +16,21 @@
 
   <ion-list inset>
     @if ($currentPlayers | async; as currentPlayers) {
-      @for (player of currentPlayers; track player) {
+      @if (currentPlayers.length) {
+        @for (player of currentPlayers; track player) {
+          <ion-item>
+            <ion-label>{{player.name}}</ion-label>
+            <ion-button fill="clear" color="danger" (click)="removePlayer(player.name)">
+              <ion-icon slot="icon-only" name="trash"></ion-icon>
+            </ion-button>
+          </ion-item>
+        }
+      } @else {
         <ion-item>
-          <ion-label>{{player.name}}</ion-label>
-          <ion-button fill="clear" color="danger" (click)="removePlayer(player.name)">
-            <ion-icon slot="icon-only" name="trash"></ion-icon>
-          </ion-button>
+          <ion-text>No players have been created.</ion-text>
         </ion-item>
       }
+
     }
   </ion-list>
 

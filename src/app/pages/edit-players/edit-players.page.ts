@@ -8,7 +8,7 @@ import {
   IonButtons,
   IonContent, IonFooter,
   IonHeader, IonIcon, IonItem, IonLabel,
-  IonList,
+  IonList, IonText,
   IonTitle,
   IonToolbar
 } from '@ionic/angular/standalone';
@@ -32,7 +32,8 @@ import {
     IonButton,
     IonIcon,
     IonAlert,
-    IonFooter
+    IonFooter,
+    IonText
   ]
 })
 export class EditPlayersPage {

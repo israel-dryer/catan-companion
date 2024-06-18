@@ -2,14 +2,15 @@ import {inject, Injectable, OnDestroy} from "@angular/core";
 import {SettingService} from "./setting.service";
 import {liveQuery} from "dexie";
 import {TextToSpeech} from "@capacitor-community/text-to-speech";
+import {Platform} from "@ionic/angular";
 
 @Injectable({providedIn: 'root'})
 export class AudioService implements OnDestroy {
 
   private settingsSub: any;
-
-  private diceSound: HTMLAudioElement;
-  private robberSound: HTMLAudioElement;
+  private platform = inject(Platform);
+  private diceSound!: HTMLAudioElement;
+  private robberSound!: HTMLAudioElement;
 
   private diceAudioSource = '/assets/sounds/dice-sound.mp3';
   private robberAudioSource = '/assets/sounds/evil-laugh.mp3';
@@ -21,13 +22,16 @@ export class AudioService implements OnDestroy {
   speechAvailable = false;
   speechVoice: number | undefined;
 
+
   constructor() {
 
-    this.diceSound = new Audio(this.diceAudioSource);
-    this.diceSound.load();
+    this.platform.ready().then(() => {
+      this.diceSound = new Audio(this.diceAudioSource);
+      this.diceSound.preload = "auto";
 
-    this.robberSound = new Audio(this.robberAudioSource);
-    this.robberSound.load();
+      this.robberSound = new Audio(this.robberAudioSource);
+      this.diceSound.preload = "auto";
+    })
 
     this.settingsSub = liveQuery(() => this.settingService.getAll())
       .subscribe(settings => {
@@ -44,20 +48,33 @@ export class AudioService implements OnDestroy {
   }
 
   playDiceSound() {
-    return this.diceSound.play()
+    if (this.diceSound.readyState === 4) {
+      this.diceSound.play().then();
+    } else {
+      this.diceSound.oncanplay = async () => { await this.diceSound.play(); };
+      this.diceSound.load();
+    }
+
   }
 
   playRobberSound() {
-    return this.robberSound.play();
+    if (this.robberSound.readyState === 4) {
+      this.robberSound.play().then();
+    } else {
+      this.robberSound.oncanplay = async () => { await this.robberSound.play(); };
+      this.robberSound.load();
+    }
   }
 
   speakResult(result: number) {
     if (!this.speechEnabled) { return; }
-    TextToSpeech.speak({
-      text: result.toString(),
-      rate: 0.7,
-      voice: this.speechVoice ?? 0,
-      lang: navigator.language}).then().catch(e => console.warn(e));
+    this.platform.ready().then(() => {
+      TextToSpeech.speak({
+        text: result.toString(),
+        rate: 0.7,
+        voice: this.speechVoice ?? 0,
+        lang: navigator.language}).then().catch(e => console.warn(e));
+    });
  }
 
 }

@@ -33,10 +33,61 @@
 
 <ion-footer>
   <div class="button-row">
-    <ion-button fill="clear" color="medium" [routerLink]="['/reports', activeGame?.id]" size="large">
+    <ion-button fill="clear" color="medium" [routerLink]="['/reports', activeGame?.id]" size="large" aria-label="Show reports">
       <ion-icon slot="icon-only" name="bar-chart"></ion-icon>
     </ion-button>
-    <ion-button fill="clear" color="medium" id="present-settings" size="large">
+    @if (activeGame?.citiesAndKnights) {
+      <ion-button fill="clear" color="medium" size="large" aria-label="Alchemy selection" id="present-alchemy-modal">
+        <ion-icon slot="icon-only" name="flask"></ion-icon>
+      </ion-button>
+
+      <ion-modal #alchemyModal (didDismiss)="confirmAlchemyModal($event)"
+        trigger="present-alchemy-modal">
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+              <ion-title>Alchemist</ion-title>
+              <ion-buttons slot="end">
+                <ion-button (click)="alchemyModal.dismiss(null, 'cancel')">
+                  <ion-icon name="close"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content class="ion-padding" style="box-sizing: border-box;">
+            <div class="picker-container">
+              <ion-picker class="picker-red">
+                <ion-picker-column [value]="1" #red>
+                  <ion-text slot="prefix" color="danger">Red</ion-text>
+                  <ion-picker-column-option color="danger" [value]="1">1</ion-picker-column-option>
+                  <ion-picker-column-option color="danger" [value]="2">2</ion-picker-column-option>
+                  <ion-picker-column-option color="danger" [value]="3">3</ion-picker-column-option>
+                  <ion-picker-column-option color="danger" [value]="4">4</ion-picker-column-option>
+                  <ion-picker-column-option color="danger" [value]="5">5</ion-picker-column-option>
+                  <ion-picker-column-option color="danger" [value]="6">6</ion-picker-column-option>
+                </ion-picker-column>
+              </ion-picker>
+              <ion-picker>
+                <ion-picker-column class="picker-gold" [value]="1" #gold>
+                  <ion-text slot="prefix" color="warning">Gold</ion-text>
+                  <ion-picker-column-option color="warning" [value]="1">1</ion-picker-column-option>
+                  <ion-picker-column-option color="warning" [value]="2">2</ion-picker-column-option>
+                  <ion-picker-column-option color="warning" [value]="3">3</ion-picker-column-option>
+                  <ion-picker-column-option color="warning" [value]="4">4</ion-picker-column-option>
+                  <ion-picker-column-option color="warning" [value]="5">5</ion-picker-column-option>
+                  <ion-picker-column-option color="warning" [value]="6">6</ion-picker-column-option>
+                </ion-picker-column>
+              </ion-picker>
+              <ion-button class="ion-margin picker-confirm" size="large" shape="round" color="dark" role="button" (click)="alchemyModal.dismiss({red: red.value, gold: gold.value}, 'confirm')">
+                <ion-label>Roll Action</ion-label>
+              </ion-button>
+            </div>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+
+    }
+    <ion-button fill="clear" color="medium" id="present-settings" size="large" aria-label="Show app settings">
       <ion-icon slot="icon-only" name="settings"></ion-icon>
     </ion-button>
   </div>

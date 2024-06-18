@@ -1,7 +1,7 @@
 import {inject, Injectable, OnDestroy} from '@angular/core';
 import {GameService} from "./game.service";
 import {Router} from "@angular/router";
-import {AlertController} from "@ionic/angular";
+import {AlertController, Platform} from "@ionic/angular";
 import {Game} from "./storage.service";
 import {CurrentService} from "./current.service";
 import {liveQuery} from "dexie";
@@ -23,6 +23,7 @@ export class PlayService implements OnDestroy {
   private settingsService = inject(SettingService);
 
   private router = inject(Router);
+  private platform = inject(Platform);
   private alertController = inject(AlertController);
   private hapticsEnabled = false;
 
@@ -75,6 +76,43 @@ export class PlayService implements OnDestroy {
     this.currentService.deleteCurrentItem('activeGameId');
   }
 
+  async rollActionDice() {
+    this.audioService.playDiceSound();
+    if (this.hapticsEnabled) {
+      await Haptics.impact({style: ImpactStyle.Heavy});
+    }
+    return this.activeGame?.citiesAndKnights ? this.getCitiesAndKnightsActivity() : undefined;
+  }
+
+  async addCustomRoll(action: string, dice1: number, dice2: number) {
+    const total = dice1 + dice2;
+
+    if (total === 7 && this.audioService.robberSoundEnabled) {
+      setTimeout(async () => {
+        this.audioService.playRobberSound();
+      }, 500);
+    } else {
+      setTimeout(async () => {
+        this.audioService.speakResult(total);
+      }, 500);
+    }
+
+    if (this.activeGame) {
+      this.activeGame.rolls.push({
+        id: Math.random(),
+        dice1,
+        dice2,
+        total: dice1 + dice2,
+        action,
+        player: this.currPlayer,
+        timestamp: Date.now(),
+      });
+      this.activeGame.turnIndex = this.nextTurnIndex();
+      this.gameService.updateGame(this.activeGame);
+    }
+    return {dice1, dice2, total};
+  }
+
   async roll() {
     if (this.hapticsEnabled) {
       await Haptics.impact({style: ImpactStyle.Heavy});
@@ -84,7 +122,7 @@ export class PlayService implements OnDestroy {
     const action = this.activeGame?.citiesAndKnights ? this.getCitiesAndKnightsActivity() : undefined;
     const total = dice1 + dice2;
 
-    await this.audioService.playDiceSound();
+    this.audioService.playDiceSound();
 
     if (this.activeGame) {
       this.activeGame.rolls.push({
@@ -101,7 +139,7 @@ export class PlayService implements OnDestroy {
 
       if (total === 7 && this.audioService.robberSoundEnabled) {
         setTimeout(async () => {
-          await this.audioService.playRobberSound();
+          this.audioService.playRobberSound();
         }, 500);
       } else {
         setTimeout(async () => {
@@ -147,12 +185,14 @@ export class PlayService implements OnDestroy {
 
   private showPlaceSettlementsAlert = async (game: Game) => {
     const index = game.turnIndex;
+
+    await this.platform.ready();
     const alert = await this.alertController.create({
       header: "Place Settlements",
       message: game.roster[index].toUpperCase() + " is first. Click START when all players have placed their settlements",
-      buttons: ["Start"]
+      buttons: ["Start"],
     });
-    return alert.present();
+    await alert.present();
   }
 
 }

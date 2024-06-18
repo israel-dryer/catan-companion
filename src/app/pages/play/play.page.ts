@@ -1,13 +1,12 @@
-import {Component, inject} from '@angular/core';
-import {AsyncPipe} from '@angular/common';
+import {Component, inject, ViewChild} from '@angular/core';
 import {KeepAwake} from "@capacitor-community/keep-awake";
 import {
   IonActionSheet,
-  IonButton,
+  IonButton, IonButtons,
   IonContent, IonFooter, IonHeader,
-  IonIcon,
-  IonNote,
-  IonText, IonToolbar,
+  IonIcon, IonLabel, IonModal,
+  IonNote, IonPicker, IonPickerColumn, IonPickerColumnOption,
+  IonText, IonTitle, IonToolbar,
   ViewWillEnter, ViewWillLeave
 } from '@ionic/angular/standalone';
 import {DiceComponent} from "../../shared/dice/dice.component";
@@ -27,19 +26,25 @@ const ROLL_DURATION = 750;
   styleUrls: ['./play.page.scss'],
   standalone: true,
   imports: [
-    IonContent,
+    IonHeader,
     IonNote,
     IonText,
+    IonContent,
+    ActionDiceComponent,
     DiceComponent,
-    AsyncPipe,
+    IonFooter,
     IonButton,
     RouterLink,
     IonIcon,
-    IonActionSheet,
-    ActionDiceComponent,
-    IonFooter,
-    IonHeader,
-    IonToolbar
+    IonModal,
+    IonToolbar,
+    IonTitle,
+    IonButtons,
+    IonPicker,
+    IonPickerColumn,
+    IonPickerColumnOption,
+    IonLabel,
+    IonActionSheet
   ],
   animations: [
     trigger('jiggleRed', [
@@ -82,6 +87,7 @@ export class PlayPage implements ViewWillEnter, ViewWillLeave {
   isRolling = false;
   playService = inject(PlayService);
   $showDiceTotal = liveQuery(() => this.settingsService.get('showDiceTotal'));
+  @ViewChild('alchemyModal') alchemyModal!: IonModal;
 
   actionSheetButtons = [
     {
@@ -123,7 +129,7 @@ export class PlayPage implements ViewWillEnter, ViewWillLeave {
   async ionViewWillEnter() {
     KeepAwake.isSupported().then(async result => {
       if (result.isSupported) {
-        await KeepAwake.keepAwake();
+        KeepAwake.keepAwake().catch(e => alert(e));
       }
     });
   }
@@ -161,6 +167,16 @@ export class PlayPage implements ViewWillEnter, ViewWillLeave {
       default:
         break;
     }
+  }
+
+  confirmAlchemyModal = async ({detail}: any) => {
+    if (detail.role === 'cancel') { return; }
+    this.isRolling = true;
+    const action = await this.playService.rollActionDice();
+    if (action) {
+      await this.playService.addCustomRoll(action, detail.data.red, detail.data.gold);
+    }
+    setTimeout(() => this.isRolling = false, ROLL_DURATION);
   }
 
   // action sheet commands

@@ -9,13 +9,13 @@ import {
   IonIcon,
   IonItem,
   IonLabel,
-  IonListHeader, IonNote,
+  IonListHeader,
   IonRadio,
   IonRadioGroup,
   IonReorder,
   IonReorderGroup,
   IonSelect,
-  IonSelectOption,
+  IonSelectOption, IonText,
   IonTitle, IonToggle,
   IonToolbar
 } from '@ionic/angular/standalone';
@@ -37,20 +37,21 @@ import {liveQuery} from "dexie";
     IonContent,
     IonListHeader,
     IonLabel,
+    IonText,
     IonItem,
     IonSelect,
-    AsyncPipe,
     IonSelectOption,
-    IonRadioGroup,
-    IonRadio,
-    IonReorderGroup,
-    IonReorder,
-    IonFooter,
     IonButton,
     IonIcon,
     IonAlert,
-    IonNote,
-    IonToggle
+    IonReorderGroup,
+    IonReorder,
+    IonRadioGroup,
+    IonRadio,
+    IonToggle,
+    AsyncPipe,
+    IonFooter
+
   ]
 })
 export class SelectPlayersPage {

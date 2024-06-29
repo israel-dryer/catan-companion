@@ -41,6 +41,11 @@ export class HomePage {
       data: {action: 'settings'},
     },
     {
+      text: 'About',
+      icon: 'information-circle',
+      data: {action: 'about'}
+    },
+    {
       text: 'Cancel',
       role: 'cancel',
       icon: 'close',
@@ -55,6 +60,9 @@ export class HomePage {
         break;
       case 'history':
         await this.router.navigate(['history']);
+        break;
+      case 'about':
+        await this.router.navigate(['about']);
         break;
       default:
         break;

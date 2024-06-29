@@ -1,0 +1,93 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>App Onboarding</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">App Onboarding</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="stepper-container">
+    <div
+      style="display: flex; justify-content: space-between; padding-inline: 1.25rem; max-width: 1000px; margin-left: auto; margin-right: auto;">
+      <app-stepper-button (click)="resetOnboardStep($event, 1)" [state]="step1State">1</app-stepper-button>
+      <app-stepper-connector [state]="step1State"></app-stepper-connector>
+      <app-stepper-button (click)="resetOnboardStep($event, 2)" [state]="step2State">2</app-stepper-button>
+      <app-stepper-connector [state]="step2State"></app-stepper-connector>
+      <app-stepper-button (click)="resetOnboardStep($event, 3)" [state]="step3State">3</app-stepper-button>
+    </div>
+
+    <div
+      style="display: flex; justify-content: space-between; max-width: 1000px; margin-left: auto; margin-right: auto; margin-top: .75rem;">
+      <ion-text>Add Players</ion-text>
+      <ion-text>Set Preferences</ion-text>
+      <ion-text>Get Started</ion-text>
+    </div>
+  </div>
+
+  <div class="onboard-content">
+    @if (onboardStep === 1) {
+      <section id="add-players">
+        <div style="padding: 2rem 0 .75rem 0; text-align: center" >Add a minimum of 2 players</div>
+        <ion-list inset>
+          <ion-item>
+            <ion-input
+              placeholder="Enter player name"
+              (keydown)="addNewPlayer($event.key, nameInput.value)"
+              [clearInput]="true"
+              enterkeyhint="enter"
+              maxlength="10"
+              required
+              [spellcheck]="false"
+              #nameInput></ion-input>
+          </ion-item>
+        </ion-list>
+
+        <ion-list style="max-height: 35svh; overflow-y: auto;" inset>
+          @if ($currentPlayers | async; as currentPlayers) {
+            @if (currentPlayers.length) {
+              @for (player of currentPlayers; track player) {
+                <ion-item>
+                  <ion-label>{{ player.name }}</ion-label>
+                  <ion-button fill="clear" color="danger" (click)="removePlayer(player.name)">
+                    <ion-icon slot="icon-only" name="trash"></ion-icon>
+                  </ion-button>
+                </ion-item>
+              }
+            } @else {
+              <ion-item>
+                <ion-text>No players have been created.</ion-text>
+              </ion-item>
+            }
+
+          }
+        </ion-list>
+
+      </section>
+    }
+    @if (onboardStep === 2) {
+      <section id="set-preferences">
+        <h2>Set preferences</h2>
+        <p>Set preferences here</p>
+        <ion-button (click)="nextStep()" href="onboard#get-started">Next</ion-button>
+      </section>
+    }
+    @if (onboardStep === 3) {
+      <section id="get-started">
+        <h2>Get started</h2>
+        <p>Get started here</p>
+        <ion-button (click)="nextStep()">Next</ion-button>
+      </section>
+    }
+
+  </div>
+
+</ion-content>
+
+<ion-footer class="ion-padding">
+  <ion-button expand="block" (click)="nextStep()">Next</ion-button>
+</ion-footer>

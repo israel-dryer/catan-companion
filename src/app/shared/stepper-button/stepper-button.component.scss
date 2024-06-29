@@ -1,0 +1,45 @@
+.stepper-button {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: .5em;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+  border-radius: 50%;
+  user-select: none;
+
+  ion-label {
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    display: grid;
+    place-items: center;
+    font-size: 1.25em;
+    font-weight: bold;
+    font-family: monospace;
+    background-color: var(--ion-color-light);
+  }
+}
+
+.step-complete {
+  ion-label {
+    border: 4px solid var(--ion-color-primary);
+    background-color: var(--ion-color-primary);
+    color: var(--ion-background-color);
+
+  }
+}
+
+.step-active {
+  ion-label {
+    border: 4px solid var(--ion-color-primary);
+  }
+}
+
+.step-inactive {
+  ion-label {
+    border: 4px solid var(--ion-color-light);
+  }
+}

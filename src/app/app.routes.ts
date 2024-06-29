@@ -27,6 +27,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/purge-game-data/purge-game-data.page').then( m => m.PurgeGameDataPage)
   },
   {
+    path: 'edit-players/:onboard',
+    loadComponent: () => import('./pages/edit-players/edit-players.page').then( m => m.EditPlayersPage)
+  },
+  {
     path: 'edit-players',
     loadComponent: () => import('./pages/edit-players/edit-players.page').then( m => m.EditPlayersPage)
   },
@@ -49,5 +53,9 @@ export const routes: Routes = [
   {
     path: 'history/:id',
     loadComponent: () => import('./pages/game-history-detail/game-history-detail.page').then( m => m.GameHistoryDetailPage)
+  },
+  {
+    path: 'about',
+    loadComponent: () => import('./pages/about/about.page').then( m => m.AboutPage)
   },
 ];

@@ -21,7 +21,7 @@
 <ion-content (click)="rollDice()" [fullscreen]="true" class="ion-padding">
   <div class="dice-container">
     @if (activeGame?.citiesAndKnights) {
-      <app-action-dice [action]="lastRoll?.action" [@jiggleGold]="isRolling ? 'active' : ''"></app-action-dice>
+      <app-action-dice [barbarianCount]="playService.barbarianCount" [action]="lastRoll?.action" [@jiggleGold]="isRolling ? 'active' : ''"></app-action-dice>
     }
     <app-dice [number]="lastRoll?.dice1" color="red" [@jiggleRed]="isRolling ? 'active' : ''"></app-dice>
     @if (!activeGame?.citiesAndKnights) {

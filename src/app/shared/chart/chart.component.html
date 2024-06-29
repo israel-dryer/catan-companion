@@ -1,0 +1,18 @@
+<div class="chart-container">
+  @if (chartData; as data) {
+    @for (col of data.rolls; track col.toString() + $index) {
+      <div class="chart-bar">
+        <div class="bar-label"
+             [ngStyle]="{color: backgroundChart ? 'var(--ion-color-medium)' : 'var(--ion-color-dark)'}">
+          {{ col === 0 ? '' : col }}
+        </div>
+        <div class="bar-line" [ngStyle]="{
+          height: data.highestRoll === 0 ? 0 : ((col / data.highestRoll)*100).toString() + '%',
+          background: backgroundChart ? 'var(--ion-color-light)' : 'var(--ion-color-primary)',
+        }">
+        </div>
+        <div class="axis-label">{{ backgroundChart ? ' ' : $index + 2 }}</div>
+      </div>
+    }
+  }
+</div>

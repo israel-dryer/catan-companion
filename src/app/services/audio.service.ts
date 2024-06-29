@@ -11,9 +11,11 @@ export class AudioService implements OnDestroy {
   private platform = inject(Platform);
   private diceSound!: HTMLAudioElement;
   private robberSound!: HTMLAudioElement;
+  private barbarianSound!: HTMLAudioElement;
 
   private diceAudioSource = '/assets/sounds/dice-sound.mp3';
   private robberAudioSource = '/assets/sounds/evil-laugh.mp3';
+  private barbarianAudioSource = '/assets/sounds/barbarians.mp3';
   private settingService = inject(SettingService);
 
   diceRollSoundEnabled = false;
@@ -30,7 +32,10 @@ export class AudioService implements OnDestroy {
       this.diceSound.preload = "auto";
 
       this.robberSound = new Audio(this.robberAudioSource);
-      this.diceSound.preload = "auto";
+      this.robberSound.preload = "auto";
+
+      this.barbarianSound = new Audio(this.barbarianAudioSource);
+      this.barbarianSound.preload = "auto";
     })
 
     this.settingsSub = liveQuery(() => this.settingService.getAll())
@@ -63,6 +68,14 @@ export class AudioService implements OnDestroy {
     } else {
       this.robberSound.oncanplay = async () => { await this.robberSound.play(); };
       this.robberSound.load();
+    }
+  }
+
+  playBarbarianSound() {
+    if (this.barbarianSound.readyState === 4) {
+      this.barbarianSound.play().then();
+    } else {
+      this.barbarianSound.oncanplay = async () => { await this.barbarianSound.play(); };
     }
   }
 

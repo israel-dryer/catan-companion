@@ -19,7 +19,7 @@
       @if (currentPlayers.length) {
         @for (player of currentPlayers; track player) {
           <ion-item>
-            <ion-label>{{player.name}}</ion-label>
+            <ion-label>{{ player.name }}</ion-label>
             <ion-button fill="clear" color="danger" (click)="removePlayer(player.name)">
               <ion-icon slot="icon-only" name="trash"></ion-icon>
             </ion-button>
@@ -34,13 +34,21 @@
     }
   </ion-list>
 
-  <ion-alert
-    trigger="add-new-player"
-    header="New Player"
-    [buttons]="['Submit']"
-    [inputs]="addPlayerInputs"
-    (didDismiss)="addNewPlayer($event)">
-  </ion-alert>
+  <ion-modal trigger="add-new-player" id="add-player-modal" (didDismiss)="dismissAlert()" #newPlayerModal>
+    <ng-template>
+      <div style="padding: 1rem 1rem .25rem 1rem;">
+        <div>
+          <ion-item>
+            <ion-input placeholder="player name" (keydown)="addNewPlayer($event.key)" #nameInput></ion-input>
+          </ion-item>
+          <div style="display: flex; margin-top: .5rem; justify-content: space-between">
+            <ion-button size="small" fill="clear" color="medium" (click)="newPlayerModal.dismiss(null, 'cancel')">Close</ion-button>
+            <ion-button size="small" fill="clear" color="primary" (click)="addNewPlayer('Enter')">Add</ion-button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </ion-modal>
 
 </ion-content>
 

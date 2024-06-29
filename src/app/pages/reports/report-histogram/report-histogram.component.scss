@@ -1,57 +1,7 @@
 :host {
+  position: relative;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   height: calc(100% - 56px);
-}
-
-@keyframes grow {
-  0% {height: 0;}
-  25% {height: 25%;}
-  50% {height: 50%;}
-  75% {height: 75%;}
-  100% {height: 100%;}
-}
-
-.chart-container {
-  height: 100%;
-  margin-top: 1rem;
-  display: flex;
-  align-items: flex-end;
-  gap: 3px;
-}
-
-.chart-bar {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-  animation-name: grow;
-  animation-duration: .2s;
-}
-
-.chart-bar:hover {
-  .bar-line {
-    background-color: var(--ion-color-secondary);
-  }
-}
-
-.bar-line {
-  background-color: var(--ion-color-primary);
-  border-radius: 4px 4px 0 0;
-  width: 100%;
-}
-
-.bar-label {
-  text-align: center;
-  margin-top: .5rem;
-}
-
-.bar-value {
-  position: absolute;
-  transform: translateY(-2.25rem);
-  color: var(--ion-color-light);
-  font-weight: 700;
 }

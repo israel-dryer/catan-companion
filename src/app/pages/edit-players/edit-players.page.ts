@@ -1,5 +1,5 @@
 import {AsyncPipe} from '@angular/common';
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {PlayerService} from "../../services/player.service";
 import {liveQuery} from "dexie";
 import {
@@ -7,11 +7,14 @@ import {
   IonBackButton, IonButton,
   IonButtons,
   IonContent, IonFooter,
-  IonHeader, IonIcon, IonItem, IonLabel,
-  IonList, IonText,
+  IonHeader, IonIcon, IonInput, IonItem, IonLabel,
+  IonList, IonModal, IonText,
   IonTitle,
   IonToolbar
 } from '@ionic/angular/standalone';
+import {ActivatedRoute, Router} from "@angular/router";
+import {Observable, Subscription} from "rxjs";
+import {AlertController} from "@ionic/angular";
 
 @Component({
   selector: 'app-edit-players',
@@ -33,27 +36,58 @@ import {
     IonIcon,
     IonAlert,
     IonFooter,
-    IonText
+    IonText,
+    IonModal,
+    IonInput
   ]
 })
-export class EditPlayersPage {
+export class EditPlayersPage implements OnInit, OnDestroy {
 
   private playerService = inject(PlayerService);
+  private alertController = inject(AlertController);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private routeSub!: Subscription;
+  private isOnboarding = false;
+  @ViewChild('nameInput') nameInput!: IonInput;
   $currentPlayers = liveQuery(() => this.playerService.selectPlayers());
-  addPlayerInputs = [{placeholder: 'Enter a username', name: 'name', value: ''}];
 
-  async addNewPlayer({detail}: { detail: Record<string, any> }) {
-    if (!detail.data?.values) {
+
+  async addNewPlayer(key?: string) {
+    if (key !== undefined && key !== 'Enter') {
       return;
     }
-    const name = detail.data.values?.name;
-    if (name) {
-      await this.playerService.insertPlayer(name);
+
+    if (this.nameInput.value) {
+      await this.playerService.insertPlayer(this.nameInput.value.toString());
+      this.nameInput.value = '';
     }
-    this.addPlayerInputs = [{placeholder: 'Enter a player', name: 'name', value: ''}];
+  }
+
+  async dismissAlert() {
+
+    const players = await this.playerService.selectPlayers();
+    if (players.length < 2 && this.isOnboarding) {
+      this.alertController
+        .create({message: 'At least 2 players required', buttons: ['Ok']})
+        .then(alert => alert.present());
+    } else if (this.isOnboarding) {
+      await this.router.navigate(['select-players'])
+    }
+
   }
 
   removePlayer(name: string) {
     return this.playerService.deletePlayer(name);
+  }
+
+  ngOnInit() {
+    this.routeSub = this.route.paramMap.subscribe(params => {
+      this.isOnboarding = params.has('onboard');
+    });
+  }
+
+  ngOnDestroy() {
+    this.routeSub.unsubscribe();
   }
 }

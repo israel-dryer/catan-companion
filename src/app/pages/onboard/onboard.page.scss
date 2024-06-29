@@ -1,0 +1,19 @@
+
+.onboard-content {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 112px;
+}
+
+ion-content {
+  position: relative;
+}
+
+.stepper-container {
+  padding: 1.5rem 1rem 1rem 1rem;
+  position: fixed;
+  width: 100%;
+  border-bottom: 1px solid var(--ion-color-light);
+  background-color: var(--ion-background-color);
+}

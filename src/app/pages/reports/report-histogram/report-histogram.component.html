@@ -1,14 +1,23 @@
-<div class="chart-container">
-  <div style="height: 100%;"></div>
+@if ($chartData | async; as data) {
+  <app-chart [chartData]="data" [backgroundChart]="filteredData.length > 0"></app-chart>
 
-  @if ($chartData | async; as data) {
-
-    @for(col of data.rolls; track col) {
-      <div class="chart-bar">
-        <div class="bar-line" [ngStyle]="{height: data.highestRoll === 0 ? 0 : ((col / data.highestRoll)*100).toString() + '%'}"></div>
-        <ion-text class="bar-value" color="primary">{{col}}</ion-text>
-        <div class="bar-label">{{$index + 2}}</div>
-      </div>
-    }
+  @if (filteredData.length > 0) {
+    <app-chart [chartData]="{highestRoll: data.highestRoll, rolls: filteredData}"></app-chart>
   }
-</div>
+}
+
+<ion-fab slot="fixed" horizontal="end" vertical="bottom" style="margin: .75rem 0">
+  <ion-fab-button fill="clear" color="light" id="present-player-filter" style="opacity: 0.7">
+    <ion-icon name="filter"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+@if ($players | async; as players) {
+  <ion-alert
+    trigger="present-player-filter"
+    header="Select a player"
+    [buttons]="[{text: 'Reset', handler: clearFilter},{text: 'Submit', handler: playerSelected}]"
+    [inputs]="players">
+  </ion-alert>
+}
+

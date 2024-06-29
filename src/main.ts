@@ -9,7 +9,7 @@ import {environment} from './environments/environment';
 import {provideAnimations} from "@angular/platform-browser/animations";
 import { provideServiceWorker } from '@angular/service-worker';
 
-export const APP_VERSION = '1.1.7';
+export const APP_VERSION = '1.2.2';
 
 if (environment.production) {
   enableProdMode();
@@ -18,13 +18,9 @@ if (environment.production) {
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    provideIonicAngular(),
+    provideIonicAngular({mode: 'md'}),
     provideRouter(routes),
     provideAnimations(),
-    provideServiceWorker('ngsw-worker.js', {
-        enabled: !isDevMode(),
-        registrationStrategy: 'registerWhenStable:30000'
-    }),
     provideServiceWorker('ngsw-worker.js', {
         enabled: !isDevMode(),
         registrationStrategy: 'registerWhenStable:30000'

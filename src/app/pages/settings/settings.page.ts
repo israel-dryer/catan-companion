@@ -23,11 +23,13 @@ import {SettingService} from "../../services/setting.service";
 import {liveQuery} from "dexie";
 import {TextToSpeech} from "@capacitor-community/text-to-speech";
 import {Directory, Encoding, Filesystem} from '@capacitor/filesystem'
-import {StorageService} from "../../services/storage.service";
+import {Game, Player, StorageService} from "../../services/storage.service";
 import {Device} from "@capacitor/device";
 import {Share} from "@capacitor/share";
 import {from, map} from "rxjs";
 import {APP_VERSION} from "../../../main";
+import {FilePicker} from "@capawesome/capacitor-file-picker";
+import {AlertController} from "@ionic/angular";
 
 
 @Component({
@@ -62,6 +64,7 @@ export class SettingsPage implements OnInit {
 
   private settingService = inject(SettingService);
   private storageService = inject(StorageService);
+  private alertController = inject(AlertController);
 
   $speechAvailable= liveQuery(() => this.settingService.get('speechAvailable'));
   $rollingDiceSoundEnabled = liveQuery(() => this.settingService.get('rollingDiceSoundEnabled'));
@@ -144,7 +147,48 @@ export class SettingsPage implements OnInit {
       link.href = url;
       link.click();
     }
+  }
 
+  importAppData = async () => {
+    try {
+      const result = await FilePicker.pickFiles({types: ['json'], limit: 1, readData: true});
+      const fr = new FileReader();
+
+      // handle upload of game data
+      fr.onload = (e: any) => {
+        try {
+          const data = JSON.parse(e.target.result);
+          if (data.games) {
+            data.games.forEach((game: Game) => {
+              this.storageService.games.put(game, game.id);
+            });
+          }
+          if (data.players) {
+            data.players.forEach((player: Player) => {
+              this.storageService.players.put(player, player.name)
+            })
+          }
+        } catch (e: any) {
+          this.alertController.create({
+            header: e.name,
+            message: e.message,
+            buttons: ['Ok']
+          }).then(alert => alert.present())
+        }
+      }
+
+      // read blob if existing
+      const blob = result.files[0].blob;
+      if (blob) {
+        fr.readAsText(blob);
+      }
+    } catch (e: any) {
+      this.alertController.create({
+        header: e.name,
+        message: e.message,
+        buttons: ['Ok']
+      }).then(alert => alert.present())
+    }
   }
 
 

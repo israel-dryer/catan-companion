@@ -1,0 +1,159 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>About Catan Companion</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">About Catan Companion</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="page-content">
+    <section>
+      <ion-text color="medium"><h2>Overview</h2></ion-text>
+      <p>
+        This is a companion app intended to be used with the Catan board game, including several variants.
+        The primary purpose of this app is to roll the dice and track the results. The app includes several
+        helpful features such as charts, reports, historical records, sound effects, and more.
+      </p>
+    </section>
+    <hr>
+    <section>
+      <ion-text color="medium"><h2>Initial Setup</h2></ion-text>
+      <p>Before you can play a game, you must add players. There are 3 different ways to add players in this app:</p>
+      <ol>
+        <li>There is an onboarding screen that will prompt you to add players when installing the app for the first
+          time.
+        </li>
+        <li>During game setup you can add additional players by clicking the <ion-text color="warning"><ion-icon name="person-add"></ion-icon><span>NEW PLAYER</span></ion-text> button.</li>
+        <li>Navigate to Settings and then click <ion-text color="warning"><ion-icon name="person-add"></ion-icon><span>Manage Players</span></ion-text> to add new players.</li>
+      </ol>
+      <p>After creating at least 2 players you are ready to start a new game.</p>
+    </section>
+    <hr>
+    <section>
+      <ion-text color="medium"><h2>Create a new game</h2></ion-text>
+      <ol>
+        <li>Click the <ion-text color="warning">PLAY</ion-text> button on the home screen.</li>
+        <li>Add at least 2 players by selecting from a list of available players.</li>
+        <li>Adjust any other game setting as needed such a turn order or toggling an expansion pack.</li>
+        <li>Click the <ion-text color="warning"><ion-icon name="dice"></ion-icon><span>START GAME</span></ion-text> button to begin.</li>
+      </ol>
+    </section>
+    <hr>
+    <section>
+      <ion-text color="medium"><h2>Game play</h2></ion-text>
+      <ol>
+        <li>A player is selected to start placing settlements.</li>
+        <li>Click the
+          <ion-text color="primary">START</ion-text>
+          button when all settlements have been placed.
+        </li>
+        <li>The player to roll is indicated at the top-left by
+          <ion-text color="medium">NEXT</ion-text>
+        </li>
+        <li>The result of the roll is displayed on the screen.</li>
+      </ol>
+
+      <ion-text color="medium"><h4>In game options</h4></ion-text>
+      <p>During the game you may perform any of the following tasks:</p>
+      <ul>
+        <li>Click the
+          <ion-icon color="medium" name="bar-chart">REPORT</ion-icon>
+          button to show a histogram of rolls and also review the roll history.
+        </li>
+        <li>
+          Click the
+          <ion-icon color="medium" name="settings"></ion-icon>
+          button to perform one or more of the following tasks:
+          <dl>
+            <dt>
+              <ion-text color="medium">
+                <ion-icon name="arrow-undo"></ion-icon>
+                Undo last roll
+              </ion-text>
+            </dt>
+            <dd>Reverse the previous roll from game history</dd>
+            <dt>
+              <ion-text color="medium">
+                <ion-icon name="trophy"></ion-icon>
+                End game
+              </ion-text>
+            </dt>
+            <dd>Select a winner (optional) and close the game.</dd>
+            <dt>
+              <ion-text color="medium">
+                <ion-icon name="timer"></ion-icon>
+                History
+              </ion-text>
+            </dt>
+            <dd>Review reports from previous games.</dd>
+            <dt>
+              <ion-text color="medium">
+                <ion-icon name="options"></ion-icon>
+                Settings
+              </ion-text>
+            </dt>
+            <dd>Configure app settings.</dd>
+          </dl>
+        </li>
+      </ul>
+
+      <ion-text color="medium"><h4>Expansion packs</h4></ion-text>
+      <p>
+        Some expansions are available to play with this app. Any expansion that does not require special dice can be
+        played
+        with this app. Additionally, other select expansions (adding more soon) are available to play as well.
+      </p>
+      <ion-text color="medium"><h5>Cities and Knights</h5></ion-text>
+      <ul>
+        <li>An additional <em>action</em> dice is rolled along with the standard <ion-text color="danger">red</ion-text> and <ion-text color="warning">gold</ion-text> dice</li>
+        <li>
+          A
+          <ion-icon color="medium" name="flask"></ion-icon>
+          button is at the bottom of the screen and is for the <em>Alchemist</em>
+          card. You may adjust the value of the red and gold dice, and then roll the action dice separately.
+        </li>
+      </ul>
+    </section>
+    <hr>
+    <section>
+      <ion-text color="medium"><h2>History</h2></ion-text>
+      <p>
+        The history page contains a list of all games played. Click on a game to see the details.
+        On the game detail page, you can review the game details as well as perform the following actions:
+      </p>
+      <dl>
+        <dt>
+          <ion-text color="danger"><ion-icon name="trash"></ion-icon><span>DELETE</span></ion-text>
+        </dt>
+        <dd>Delete the game from history</dd>
+        <dt>
+          <ion-text color="medium"><ion-icon name="dice"></ion-icon><span>CONTINUE</span></ion-text>
+        </dt>
+        <dd>Continue playing a game that was incomplete (a winner was not selected)</dd>
+        <dt>
+          <ion-text color="primary"><ion-icon name="bar-chart"></ion-icon><span>REPORTS</span></ion-text>
+        </dt>
+        <dd>Review the reports for this game (histogram and roll history)</dd>
+      </dl>
+    </section>
+    <hr>
+    <section>
+      <ion-text color="medium"><h2>Settings</h2></ion-text>
+      <p>
+        The settings page allows you to control several application level settings such as sound effects, haptics, and
+        voice.
+
+        You may also perform several other maintenance tasks on this page such as bulk purging game history,
+        resetting app settings, and exporting or sharing the game data.
+      </p>
+    </section>
+  </div>
+</ion-content>

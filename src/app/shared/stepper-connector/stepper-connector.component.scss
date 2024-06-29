@@ -1,0 +1,17 @@
+:host {
+  flex-grow: 1;
+  align-self: center;
+}
+
+.step-line {
+  border-bottom: 4px solid var(--ion-color-medium);
+  display: flex;
+}
+
+.step-line-complete {
+  border-bottom: 4px solid var(--ion-color-primary);
+}
+
+.step-line-inactive {
+  border-bottom: 4px solid var(--ion-color-light);
+}

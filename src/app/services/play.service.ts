@@ -46,6 +46,15 @@ export class PlayService implements OnDestroy {
     this.hapticsEnabledSub.unsubscribe();
   }
 
+  get barbarianCount() {
+    if (this.activeGame) {
+      const count = this.activeGame.rolls.filter(x => x.action === 'BAR');
+      return count.length > 0 ? count.length % 7 : -1;
+    } else {
+      return -1;
+    }
+  }
+
   get prevPlayer() {
     if (this.activeGame) {
       const index = this.prevTurnIndex();
@@ -137,7 +146,16 @@ export class PlayService implements OnDestroy {
       this.activeGame.turnIndex = this.nextTurnIndex();
       this.gameService.updateGame(this.activeGame);
 
-      if (total === 7 && this.audioService.robberSoundEnabled) {
+      if (this.barbarianCount === 0 && action === 'BAR') {
+        this.alertController
+          .create({message: 'The barbarians have attacked!!!', buttons: ['OK']})
+          .then(toast => toast.present())
+        if (this.audioService.robberSoundEnabled) {
+          setTimeout(async () => {
+            this.audioService.playBarbarianSound();
+          }, 500);
+        }
+      } else if (total === 7 && this.audioService.robberSoundEnabled) {
         setTimeout(async () => {
           this.audioService.playRobberSound();
         }, 500);

@@ -1,6 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {AsyncPipe} from '@angular/common';
 import {
+  IonAccordion, IonAccordionGroup,
   IonAlert, IonBackButton,
   IonButton, IonButtons,
   IonContent,
@@ -17,11 +18,12 @@ import {
   IonSelect,
   IonSelectOption, IonText,
   IonTitle, IonToggle,
-  IonToolbar
+  IonToolbar, ViewWillEnter
 } from '@ionic/angular/standalone';
 import {PlayerService} from "../../services/player.service";
 import {PlayService} from "../../services/play.service";
 import {liveQuery} from "dexie";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-select-players',
@@ -50,11 +52,13 @@ import {liveQuery} from "dexie";
     IonRadio,
     IonToggle,
     AsyncPipe,
-    IonFooter
+    IonFooter,
+    IonAccordion,
+    IonAccordionGroup
 
   ]
 })
-export class SelectPlayersPage {
+export class SelectPlayersPage implements ViewWillEnter {
 
   roster: string[] = [];
   startingOption: 'random' | 'first' = 'random';
@@ -62,6 +66,7 @@ export class SelectPlayersPage {
 
   private playerService = inject(PlayerService);
   private playService = inject(PlayService);
+  private router = inject(Router);
 
   // display players based on most recently played
   $players = liveQuery(
@@ -69,6 +74,15 @@ export class SelectPlayersPage {
       .then(players => players.sort((a, b) => b.lastPlayed - a.lastPlayed)));
 
   createPlayerInputs = [{placeholder: 'Enter a username', name: 'name', value: ''}];
+
+
+  async ionViewWillEnter() {
+    const players = await this.playerService.selectPlayers();
+    if (players.length < 2) {
+      await this.router.navigate(['edit-players', 'onboard']);
+    }
+  }
+
 
   async addPlayer({detail}: { detail: Record<string, any> }) {
     if (!detail.data?.values) {

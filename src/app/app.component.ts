@@ -21,7 +21,8 @@ import {
   shareSocial,
   options,
   timer,
-  flask, boatOutline, skull, business, businessOutline, skullOutline
+  filter,
+  flask, boatOutline, skull, business, businessOutline, skullOutline, informationCircle, arrowBack, funnel
 } from "ionicons/icons";
 
 @Component({
@@ -36,6 +37,7 @@ export class AppComponent {
       peopleCircleOutline, personAdd, dice, close, settings, barChart,
       arrowUndo, list, trophy, trash, document, cloudUpload, refresh, add,
       download, flask, boatOutline, skull, business, skullOutline, businessOutline,
+      informationCircle, arrowBack, funnel, filter,
       diceOutline, shareSocial, options, timer});
   }
 }

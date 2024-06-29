@@ -2,7 +2,12 @@
 
   @switch (action) {
     @case (DiceAction.BARBARIAN) {
-      <img [ngSrc]="DiceActionResource.BARBARIAN" [priority]="true" width="96" height="96" alt="barbarian dice">
+      <ng-container>
+        <img [ngSrc]="DiceActionResource.BARBARIAN" [priority]="true" width="96" height="96" alt="barbarian dice">
+        @if (barbarianCount > 0) {
+          <div class="barbarian-count">{{barbarianCount}}</div>
+        }
+      </ng-container>
     }
     @case(DiceAction.BLUE) {
       <img [ngSrc]="DiceActionResource.BLUE" [priority]="true" width="96" height="96" alt="blue building dice">
@@ -13,5 +18,5 @@
     @case (DiceAction.GOLD) {
       <img [ngSrc]="DiceActionResource.GOLD" [priority]="true" width="96" height="96" alt="gold building dice">
     }
-  })
+  }
 </div>

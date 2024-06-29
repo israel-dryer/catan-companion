@@ -18,40 +18,19 @@
     }
 
     @if ($players | async; as players) {
-      @if ($any(players).length >= 2) {
-        @if (roster.length < 2) {
-          <div class="ion-text-center ion-padding">
-            <ion-text>Select 2 or more players to begin...</ion-text>
-          </div>
-        }
-        <ion-item>
-          <ion-select labelPlacement="stacked" placeholder="Available players" aria-label="Available Players"
-                      (ionChange)="selectAvailablePlayers($event)" multiple>
-            @for (player of $any(players); track player) {
-              <ion-select-option [value]="player.name">{{ player.name }}</ion-select-option>
-            }
-          </ion-select>
-        </ion-item>
-      } @else {
-        <div style="display: grid; gap: 2rem; justify-content: center;">
-          @if ($any(players).length === 1) {
-            <ion-text class="ion-padding">Create one more player...</ion-text>
-          } @else {
-            <ion-text class="ion-padding">Create at least two players to begin.</ion-text>
-          }
-          <ion-button color="warning" id="create-player-alert">
-            <ion-icon slot="start" name="person-add"></ion-icon>
-            <ion-label>Add Player</ion-label>
-          </ion-button>
+      @if (roster.length < 2) {
+        <div class="ion-text-center ion-padding">
+          <ion-text>Select 2 or more players to begin...</ion-text>
         </div>
-        <ion-alert
-          trigger="create-player-alert"
-          header="New Player"
-          [buttons]="['SUBMIT']"
-          [inputs]="createPlayerInputs"
-          (didDismiss)="addPlayer($event)">
-        </ion-alert>
       }
+      <ion-item>
+        <ion-select labelPlacement="stacked" placeholder="Available players" aria-label="Available Players"
+                    (ionChange)="selectAvailablePlayers($event)" multiple>
+          @for (player of $any(players); track player) {
+            <ion-select-option [value]="player.name">{{ player.name }}</ion-select-option>
+          }
+        </ion-select>
+      </ion-item>
     }
   </div>
 
@@ -62,43 +41,52 @@
   }
 
   @if (roster.length >= 2) {
-    <div>
-      <!--Game Roster-->
-      <ion-list-header>
-        <ion-label color="medium">Turn Order</ion-label>
-      </ion-list-header>
-      <ion-reorder-group [disabled]="false" (ionItemReorder)="handlePlayerReorder($event)">
-        @for (player of roster; track player) {
+    <ion-accordion-group style="margin-top: 2rem;">
+      <ion-accordion>
+        <ion-item slot="header">Other Game Options</ion-item>
+        <div slot="content">
+          <div>
+            <!--Game Roster-->
+            <ion-list-header>
+              <ion-label color="medium">Turn Order</ion-label>
+            </ion-list-header>
+            <ion-reorder-group [disabled]="false" (ionItemReorder)="handlePlayerReorder($event)">
+              @for (player of roster; track player) {
+                <ion-item>
+                  <ion-label>{{ player }}</ion-label>
+                  <ion-reorder slot="end"></ion-reorder>
+                </ion-item>
+              }
+            </ion-reorder-group>
+          </div>
+
+          <div>
+            <!--Starting Player Options-->
+            <ion-list-header>
+              <ion-label color="medium">Starting player strategy</ion-label>
+            </ion-list-header>
+            <ion-item>
+              <ion-radio-group [value]="startingOption" (ionChange)="startingOptionChanged($event)"
+                               style="width: 100%; padding: .5rem;">
+                <ion-radio color="warning" value="random">Use Random Player</ion-radio>
+                <ion-radio color="warning" value="first">First in List</ion-radio>
+              </ion-radio-group>
+            </ion-item>
+          </div>
+
+          <ion-list-header>
+            <ion-label color="medium">Expansion Packs</ion-label>
+          </ion-list-header>
           <ion-item>
-            <ion-label>{{ player }}</ion-label>
-            <ion-reorder slot="end"></ion-reorder>
+            <ion-toggle color="warning" [checked]="citiesAndKnights" (ionChange)="toggleCitiesAndKnights($event)">
+              <ion-label>Cities and Knights Expansion</ion-label>
+            </ion-toggle>
           </ion-item>
-        }
-      </ion-reorder-group>
-    </div>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
 
-    <div>
-      <!--Starting Player Options-->
-      <ion-list-header>
-        <ion-label color="medium">Starting player strategy</ion-label>
-      </ion-list-header>
-      <ion-item>
-        <ion-radio-group [value]="startingOption" (ionChange)="startingOptionChanged($event)"
-                         style="width: 100%; padding: .5rem;">
-          <ion-radio color="warning" value="random">Use Random Player</ion-radio>
-          <ion-radio color="warning" value="first">First in List</ion-radio>
-        </ion-radio-group>
-      </ion-item>
-    </div>
 
-    <ion-list-header>
-      <ion-label color="medium">Expansion Packs</ion-label>
-    </ion-list-header>
-    <ion-item>
-      <ion-toggle color="warning" [checked]="citiesAndKnights" (ionChange)="toggleCitiesAndKnights($event)">
-        <ion-label>Cities and Knights Expansion</ion-label>
-      </ion-toggle>
-    </ion-item>
 
   }
 

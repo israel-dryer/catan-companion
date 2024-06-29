@@ -101,11 +101,6 @@ export class PlayPage implements ViewWillEnter, ViewWillLeave {
       data: {action: 'end'},
     },
     {
-      text: 'History',
-      icon: 'timer',
-      data: {action: 'history'},
-    },
-    {
       text: 'Settings',
       icon: 'options',
       data: {action: 'settings'},
@@ -163,6 +158,9 @@ export class PlayPage implements ViewWillEnter, ViewWillLeave {
         break;
       case 'history':
         await this.router.navigate(['history']);
+        break;
+      case 'about':
+        await this.router.navigate(['about'])
         break;
       default:
         break;

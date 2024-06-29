@@ -84,11 +84,20 @@
 
   <ion-footer class="ion-padding">
     <ion-buttons style="justify-content: space-around;">
-      <ion-button color="danger" (click)="deleteGame(game.id)">Delete</ion-button>
+      <ion-button color="danger" (click)="deleteGame(game.id)">
+          <ion-icon slot="start" name="trash"></ion-icon>
+          Delete
+      </ion-button>
       @if (!game.winner) {
-        <ion-button color="medium" (click)="continueGame(game)">Continue</ion-button>
+        <ion-button color="medium" (click)="continueGame(game)">
+          <ion-icon slot="start" name="dice"></ion-icon>
+          Continue
+        </ion-button>
       }
-      <ion-button color="secondary" (click)="showReports(game.id)">Reports</ion-button>
+      <ion-button color="secondary" (click)="showReports(game.id)">
+        <ion-icon slot="start" name="bar-chart"></ion-icon>
+        Reports
+      </ion-button>
     </ion-buttons>
   </ion-footer>
 

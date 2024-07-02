@@ -30,12 +30,6 @@
       </ion-toggle>
     </ion-item>
     <ion-item>
-      <ion-toggle color="success" [checked]="$showDiceTotal | async" (ionChange)="toggleDiceTotal($event)">
-        <ion-label>Show Dice Total</ion-label>
-        <ion-note>Display sum of dice</ion-note>
-      </ion-toggle>
-    </ion-item>
-    <ion-item>
       <ion-toggle color="success" [checked]="$hapticsEnabled | async" (ionChange)="toggleHaptics($event)">
         <ion-label>Enable Haptics</ion-label>
         <ion-note>Vibrate device on dice roll</ion-note>

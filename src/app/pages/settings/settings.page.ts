@@ -111,10 +111,6 @@ export class SettingsPage implements OnInit {
     await this.settingService.put('hapticsEnabled', detail.checked);
   }
 
-  toggleDiceTotal = async ({detail}: any) => {
-    await this.settingService.put('showDiceTotal', detail.checked);
-  }
-
   resetAppSettings = async () => {
     await this.settingService.reset();
   }

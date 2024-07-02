@@ -56,8 +56,10 @@ export class AudioService implements OnDestroy {
     if (this.diceSound.readyState === 4) {
       this.diceSound.play().then();
     } else {
-      this.diceSound.oncanplay = async () => { await this.diceSound.play(); };
       this.diceSound.load();
+      this.diceSound.oncanplay = async () => {
+        await this.diceSound.play();
+      };
     }
 
   }
@@ -66,8 +68,8 @@ export class AudioService implements OnDestroy {
     if (this.robberSound.readyState === 4) {
       this.robberSound.play().then();
     } else {
-      this.robberSound.oncanplay = async () => { await this.robberSound.play(); };
       this.robberSound.load();
+      this.robberSound.oncanplay = async () => { await this.robberSound.play(); };
     }
   }
 
@@ -75,6 +77,7 @@ export class AudioService implements OnDestroy {
     if (this.barbarianSound.readyState === 4) {
       this.barbarianSound.play().then();
     } else {
+      this.barbarianSound.load();
       this.barbarianSound.oncanplay = async () => { await this.barbarianSound.play(); };
     }
   }

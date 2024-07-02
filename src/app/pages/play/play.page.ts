@@ -3,9 +3,9 @@ import {KeepAwake} from "@capacitor-community/keep-awake";
 import {
   IonActionSheet,
   IonButton, IonButtons,
-  IonContent, IonFooter, IonHeader,
+  IonContent, IonFab, IonFabButton, IonFooter, IonHeader,
   IonIcon, IonLabel, IonModal,
-  IonNote, IonPicker, IonPickerColumn, IonPickerColumnOption,
+  IonNote,
   IonText, IonTitle, IonToolbar,
   ViewWillEnter, ViewWillLeave
 } from '@ionic/angular/standalone';
@@ -14,9 +14,10 @@ import {PlayService} from "../../services/play.service";
 import {AlertController} from "@ionic/angular";
 import {Router, RouterLink} from "@angular/router";
 import {SettingService} from "../../services/setting.service";
-import {liveQuery} from "dexie";
 import {animate, keyframes, state, style, transition, trigger} from "@angular/animations";
 import {ActionDiceComponent} from "../../shared/action-dice/action-dice.component";
+import {DecimalPipe} from "@angular/common";
+import {NumberPickerComponent} from "../../shared/number-picker/number-picker.component";
 
 const ROLL_DURATION = 750;
 
@@ -26,25 +27,26 @@ const ROLL_DURATION = 750;
   styleUrls: ['./play.page.scss'],
   standalone: true,
   imports: [
+    NumberPickerComponent,
     IonHeader,
     IonNote,
     IonText,
     IonContent,
     ActionDiceComponent,
     DiceComponent,
+    IonFab,
+    IonFabButton,
+    IonIcon,
+    DecimalPipe,
     IonFooter,
     IonButton,
-    RouterLink,
-    IonIcon,
     IonModal,
     IonToolbar,
     IonTitle,
     IonButtons,
-    IonPicker,
-    IonPickerColumn,
-    IonPickerColumnOption,
     IonLabel,
-    IonActionSheet
+    IonActionSheet,
+    RouterLink
   ],
   animations: [
     trigger('jiggleRed', [
@@ -86,7 +88,6 @@ export class PlayPage implements ViewWillEnter, ViewWillLeave {
   private router = inject(Router);
   isRolling = false;
   playService = inject(PlayService);
-  $showDiceTotal = liveQuery(() => this.settingsService.get('showDiceTotal'));
   @ViewChild('alchemyModal') alchemyModal!: IonModal;
 
   actionSheetButtons = [
@@ -168,7 +169,9 @@ export class PlayPage implements ViewWillEnter, ViewWillLeave {
   }
 
   confirmAlchemyModal = async ({detail}: any) => {
-    if (detail.role === 'cancel') { return; }
+    if (detail.role === 'cancel') {
+      return;
+    }
     this.isRolling = true;
     const action = await this.playService.rollActionDice();
     if (action) {

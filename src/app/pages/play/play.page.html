@@ -2,17 +2,17 @@
   <div class="header-row">
     <div class="next-player ion-text-uppercase">
       <ion-note class="ion-text-uppercase">Next</ion-note>
-      <ion-text style="font-size: 1.4rem" color="warning">{{playService.currPlayer}}</ion-text>
+      <ion-text style="font-size: 1.4rem" color="warning">{{ playService.currPlayer }}</ion-text>
     </div>
     @if (activeGame?.citiesAndKnights) {
       <div class="ion-text-center ion-text-uppercase" style="align-items: center; grid-column: 2;">
-        <div style="font-size: 2.25rem; font-weight: bold">{{lastRoll?.total}}</div>
+        <div style="font-size: 2.25rem; font-weight: bold">{{ lastRoll?.total }}</div>
       </div>
     }
     <div class="prev-player ion-text-end ion-text-uppercase" style="grid-column: 3;">
       <ion-note>Prev</ion-note>
       @if (activeGame?.rolls?.length) {
-        <ion-text style="font-size: 1.4rem">{{playService.prevPlayer}}</ion-text>
+        <ion-text style="font-size: 1.4rem">{{ playService.prevPlayer }}</ion-text>
       }
     </div>
   </div>
@@ -21,19 +21,37 @@
 <ion-content (click)="rollDice()" [fullscreen]="true" class="ion-padding">
   <div class="dice-container">
     @if (activeGame?.citiesAndKnights) {
-      <app-action-dice [barbarianCount]="playService.barbarianCount" [action]="lastRoll?.action" [@jiggleGold]="isRolling ? 'active' : ''"></app-action-dice>
+      <app-action-dice [action]="lastRoll?.action" [@jiggleGold]="isRolling ? 'active' : ''"></app-action-dice>
     }
     <app-dice [number]="lastRoll?.dice1" color="red" [@jiggleRed]="isRolling ? 'active' : ''"></app-dice>
     @if (!activeGame?.citiesAndKnights) {
-      <ion-text class="center-roll-total">{{lastRoll?.total}}</ion-text>
+      <ion-text class="center-roll-total">{{ lastRoll?.total }}</ion-text>
     }
     <app-dice [number]="lastRoll?.dice2" color="gold" [@jiggleGold]="isRolling ? 'active' : ''"></app-dice>
   </div>
 </ion-content>
 
+@if (activeGame?.citiesAndKnights) {
+  <ion-fab horizontal="end" style="margin-top: 5rem;">
+    @if (playService.barbarianCount <= 0) {
+      <ion-fab-button style="--background: rgb(0, 0, 0, .20); --color: var(--ion-color-medium);">
+        <ion-icon name="skull" style="position: absolute; font-size: 4em;"></ion-icon>
+      </ion-fab-button>
+    } @else {
+      <ion-fab-button style="--background: rgb(0, 0, 0, .20); --color: var(--ion-color-dark);">
+        <ion-icon name="skull" style="position: absolute; font-size: 4em;"></ion-icon>
+        <ion-text style="position: absolute; top: .15em; font-weight: 800; font-size: 1.25em;"
+                  color="danger">{{ playService.barbarianCount | number }}
+        </ion-text>
+      </ion-fab-button>
+    }
+  </ion-fab>
+}
+
 <ion-footer>
   <div class="button-row">
-    <ion-button fill="clear" color="medium" [routerLink]="['/reports', activeGame?.id]" size="large" aria-label="Show reports">
+    <ion-button fill="clear" color="medium" [routerLink]="['/reports', activeGame?.id]" size="large"
+                aria-label="Show reports">
       <ion-icon slot="icon-only" name="bar-chart"></ion-icon>
     </ion-button>
     @if (activeGame?.citiesAndKnights) {
@@ -42,47 +60,31 @@
       </ion-button>
 
       <ion-modal #alchemyModal (didDismiss)="confirmAlchemyModal($event)"
-        trigger="present-alchemy-modal">
+                 style="--height: auto; --width: auto;"
+                 trigger="present-alchemy-modal">
         <ng-template>
-          <ion-header>
-            <ion-toolbar>
-              <ion-title>Alchemist</ion-title>
-              <ion-buttons slot="end">
-                <ion-button (click)="alchemyModal.dismiss(null, 'cancel')">
-                  <ion-icon name="close"></ion-icon>
+          <div class="modal-content">
+            <ion-header>
+              <ion-toolbar>
+                <ion-title>Alchemist</ion-title>
+                <ion-buttons slot="end">
+                  <ion-button (click)="alchemyModal.dismiss(null, 'cancel')">
+                    <ion-icon name="close"></ion-icon>
+                  </ion-button>
+                </ion-buttons>
+              </ion-toolbar>
+            </ion-header>
+            <ion-content class="ion-padding" style="box-sizing: border-box;">
+              <div class="picker-container">
+                <app-number-picker color="danger" #red></app-number-picker>
+                <app-number-picker color="warning" #gold></app-number-picker>
+                <ion-button class="ion-margin picker-confirm" color="dark" role="button"
+                            (click)="alchemyModal.dismiss({red: red.value, gold: gold.value}, 'confirm')">
+                  <ion-label>Roll Action</ion-label>
                 </ion-button>
-              </ion-buttons>
-            </ion-toolbar>
-          </ion-header>
-          <ion-content class="ion-padding" style="box-sizing: border-box;">
-            <div class="picker-container">
-              <ion-picker class="picker-red">
-                <ion-picker-column [value]="1" #red>
-                  <ion-text slot="prefix" color="danger">Red</ion-text>
-                  <ion-picker-column-option color="danger" [value]="1">1</ion-picker-column-option>
-                  <ion-picker-column-option color="danger" [value]="2">2</ion-picker-column-option>
-                  <ion-picker-column-option color="danger" [value]="3">3</ion-picker-column-option>
-                  <ion-picker-column-option color="danger" [value]="4">4</ion-picker-column-option>
-                  <ion-picker-column-option color="danger" [value]="5">5</ion-picker-column-option>
-                  <ion-picker-column-option color="danger" [value]="6">6</ion-picker-column-option>
-                </ion-picker-column>
-              </ion-picker>
-              <ion-picker>
-                <ion-picker-column class="picker-gold" [value]="1" #gold>
-                  <ion-text slot="prefix" color="warning">Gold</ion-text>
-                  <ion-picker-column-option color="warning" [value]="1">1</ion-picker-column-option>
-                  <ion-picker-column-option color="warning" [value]="2">2</ion-picker-column-option>
-                  <ion-picker-column-option color="warning" [value]="3">3</ion-picker-column-option>
-                  <ion-picker-column-option color="warning" [value]="4">4</ion-picker-column-option>
-                  <ion-picker-column-option color="warning" [value]="5">5</ion-picker-column-option>
-                  <ion-picker-column-option color="warning" [value]="6">6</ion-picker-column-option>
-                </ion-picker-column>
-              </ion-picker>
-              <ion-button class="ion-margin picker-confirm" size="large" shape="round" color="dark" role="button" (click)="alchemyModal.dismiss({red: red.value, gold: gold.value}, 'confirm')">
-                <ion-label>Roll Action</ion-label>
-              </ion-button>
-            </div>
-          </ion-content>
+              </div>
+            </ion-content>
+          </div>
         </ng-template>
       </ion-modal>
 
@@ -91,5 +93,6 @@
       <ion-icon slot="icon-only" name="settings"></ion-icon>
     </ion-button>
   </div>
-  <ion-action-sheet (didDismiss)="closeActionSheet($event)" trigger="present-settings" [buttons]="actionSheetButtons"></ion-action-sheet>
+  <ion-action-sheet (didDismiss)="closeActionSheet($event)" trigger="present-settings"
+                    [buttons]="actionSheetButtons"></ion-action-sheet>
 </ion-footer>

@@ -1,0 +1,11 @@
+<div style="display: flex; gap: 1em; align-items: center; justify-content: center">
+  <ion-button fill="outline" size="large" (click)="decrement()" [color]="color">
+    <ion-icon slot="icon-only" name="remove"></ion-icon>
+  </ion-button>
+  <div style="min-width: 1em; text-align: center; font-size: 3em;">
+    <ion-text>{{value}}</ion-text>
+  </div>
+  <ion-button fill="outline" size="large" (click)="increment()" [color]="color">
+    <ion-icon slot="icon-only" name="add"></ion-icon>
+  </ion-button>
+</div>

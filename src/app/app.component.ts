@@ -22,7 +22,7 @@ import {
   options,
   timer,
   filter,
-  flask, boatOutline, skull, business, businessOutline, skullOutline, informationCircle, arrowBack, funnel
+  flask, boatOutline, skull, business, businessOutline, skullOutline, informationCircle, arrowBack, funnel, remove
 } from "ionicons/icons";
 
 @Component({
@@ -37,7 +37,7 @@ export class AppComponent {
       peopleCircleOutline, personAdd, dice, close, settings, barChart,
       arrowUndo, list, trophy, trash, document, cloudUpload, refresh, add,
       download, flask, boatOutline, skull, business, skullOutline, businessOutline,
-      informationCircle, arrowBack, funnel, filter,
+      informationCircle, arrowBack, funnel, filter, remove,
       diceOutline, shareSocial, options, timer});
   }
 }

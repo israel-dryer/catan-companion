@@ -9,7 +9,7 @@ import {environment} from './environments/environment';
 import {provideAnimations} from "@angular/platform-browser/animations";
 import { provideServiceWorker } from '@angular/service-worker';
 
-export const APP_VERSION = '1.2.2';
+export const APP_VERSION = '1.2.3';
 
 if (environment.production) {
   enableProdMode();

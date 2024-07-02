@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -10,6 +10,7 @@ import {
   IonTitle,
   IonToolbar
 } from '@ionic/angular/standalone';
+import {APP_VERSION} from "../../../main";
 
 @Component({
   selector: 'app-about',
@@ -18,11 +19,9 @@ import {
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButtons, IonBackButton, IonText, IonIcon]
 })
-export class AboutPage implements OnInit {
+export class AboutPage {
 
   constructor() { }
 
-  ngOnInit() {
-  }
-
+  protected readonly APP_VERSION = APP_VERSION;
 }

@@ -4,9 +4,6 @@
     @case (DiceAction.BARBARIAN) {
       <ng-container>
         <img [ngSrc]="DiceActionResource.BARBARIAN" [priority]="true" width="96" height="96" alt="barbarian dice">
-        @if (barbarianCount > 0) {
-          <div class="barbarian-count">{{barbarianCount}}</div>
-        }
       </ng-container>
     }
     @case(DiceAction.BLUE) {

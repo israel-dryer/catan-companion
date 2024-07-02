@@ -26,7 +26,6 @@ enum DiceAction {
 })
 export class ActionDiceComponent {
   @Input() action?: string;
-  @Input() barbarianCount?: number;
   protected readonly DiceAction = DiceAction;
   protected readonly DiceActionResource = ActionDiceVariant;
 }
